@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.devpro.spring.utils.WebUtils;
 
 public class MainController {
-	@RequestMapping(value = {"/", "homepage"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "homePage"}, method = RequestMethod.GET)
 	public String homePage(Model model) {
 		return "homePage";
 	}
