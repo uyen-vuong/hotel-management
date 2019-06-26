@@ -1,6 +1,6 @@
 create database hotel_management;
 use hotel_management;
-create table user(
+create table app_user(
 	user_id bigint auto_increment,
     username varchar(50) not null,
     encryted_password varchar(125) not null,
@@ -8,7 +8,7 @@ create table user(
     constraint user_pk primary key (user_id),
     constraint user_uk unique (username)
 );
-create table role(
+create table app_role(
 	role_id bigint auto_increment,
     role_name varchar(50) not null,
     constraint role_pk primary key (role_id),
