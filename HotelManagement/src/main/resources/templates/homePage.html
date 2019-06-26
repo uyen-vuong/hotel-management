@@ -31,9 +31,9 @@
 				<ul class="d-flex flex-row align-items-center justify-content-start">
 					<li class="active"><a th:if="${#request.userPrincipal != null}" href="#">Trang chủ</a></li>
 					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/chamberManage}">Quản lý phòng</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/employeeManage}">Quản lý nhân viên</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/accountManage}">Kiểm soát thu, chi</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/typeService}">Các loại hình dịch vụ</a></li>
+					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/employeeManage}">Quản lý đặt món</a></li>
+					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/accountManage}">Quản lý dịch vụ</a></li>
+					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/typeService}">Quản lý nhân </a></li>
 					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Đăng xuất</a></li>
 				</ul>
 			</nav>
