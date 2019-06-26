@@ -2,7 +2,7 @@ create database hotel_management;
 use hotel_management;
 create table app_user(
 	user_id bigint auto_increment,
-    username varchar(50) not null,
+    user_name varchar(50) not null,
     encryted_password varchar(125) not null,
     enabled bit not null,
     constraint user_pk primary key (user_id),
@@ -24,7 +24,7 @@ create table user_role(
 );
 create table persistent_login(
 	series varchar(64),
-    username varchar(64) not null,
+    user_name varchar(64) not null,
     token varchar(64) not null,
     last_used timestamp not null,
     constraint persistent_login_pk primary key (series)
