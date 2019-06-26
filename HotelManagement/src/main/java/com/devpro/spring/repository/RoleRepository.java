@@ -8,7 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.devpro.spring.model.AppRole;
 
-public interface RoleRepository extends JpaRepository<AppRole, Long>{
+public interface RoleRepository extends JpaRepository<AppRole, Long> {
+	
 	@Query("select ur.appRole.roleName from UserRole ur where ur.appUser.userId = :userId")
 	public List<String> getRoleNames(@Param("userId") Long userId);
 }

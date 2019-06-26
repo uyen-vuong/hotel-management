@@ -8,15 +8,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.devpro.spring.service.UserDetailsServiceImpl;
 
+
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+	
 	@Autowired
 	private UserDetailsServiceImpl userDetailsServiceImpl;
 	
@@ -34,19 +37,20 @@ public class WebSecurityConfig {
 		auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
 	}
 
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.csrf().disable();
 		
 		http.authorizeRequests().antMatchers("/", "/logout").permitAll()
 		.and()
-			.formLogin()
+			.formLogin().usernameParameter("username").passwordParameter("pass")
 				.loginPage("/login")
 					.permitAll();
 		
 		http.authorizeRequests().antMatchers("/student/edit/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 		http.authorizeRequests().antMatchers("/student/delete/**").access("hasAnyRole('ROLE_ADMIN')");
-		
+		http.authorizeRequests().antMatchers("/user/infor/**").access("hasAnyRole('ROLE_ADMIN')");
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 	}
 	

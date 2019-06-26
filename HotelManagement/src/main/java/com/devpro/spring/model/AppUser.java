@@ -83,4 +83,5 @@ public class AppUser {
 		builder.append("]");
 		return builder.toString();
 	}
+
 }

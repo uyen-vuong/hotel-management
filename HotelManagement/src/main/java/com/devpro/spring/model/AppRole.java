@@ -11,7 +11,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "app_role", //
 		uniqueConstraints = { @UniqueConstraint(name = "APP_ROLE_UK", columnNames = "role_name") })
 public class AppRole {
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name = "role_id", nullable = false)
@@ -56,4 +56,5 @@ public class AppRole {
 		builder.append("]");
 		return builder.toString();
 	}
+
 }

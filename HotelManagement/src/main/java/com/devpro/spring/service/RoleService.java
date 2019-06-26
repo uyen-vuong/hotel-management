@@ -11,6 +11,7 @@ import com.devpro.spring.repository.RoleRepository;
 @Service
 @Transactional
 public class RoleService {
+	
 	@Autowired
 	private RoleRepository roleRepository;
 	

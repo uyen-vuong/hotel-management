@@ -22,6 +22,7 @@ import com.devpro.spring.repository.UserRepository;
 @Service
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService{
+	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -47,6 +48,5 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		UserDetails userDetails = (UserDetails) new User(appUser.getUserName(), appUser.getEncrytedPassword(), grantList);
 		return userDetails;
 	}
-
 	
 }
