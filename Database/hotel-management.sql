@@ -6,7 +6,7 @@ create table app_user(
     encryted_password varchar(125) not null,
     enabled bit not null,
     constraint user_pk primary key (user_id),
-    constraint user_uk unique (username)
+    constraint user_uk unique (user_name)
 );
 create table app_role(
 	role_id bigint auto_increment,
