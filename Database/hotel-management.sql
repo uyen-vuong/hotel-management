@@ -19,8 +19,8 @@ create table user_role(
     user_id bigint,
     role_id bigint,
     constraint user_role_pk primary key (id),
-    constraint user_role_fk1 foreign key (user_id) references user(user_id),
-    constraint user_role_fk2 foreign key (role_id) references role(role_id)
+    constraint user_role_fk1 foreign key (user_id) references app_user(user_id),
+    constraint user_role_fk2 foreign key (role_id) references app_role(role_id)
 );
 create table persistent_login(
 	series varchar(64),
