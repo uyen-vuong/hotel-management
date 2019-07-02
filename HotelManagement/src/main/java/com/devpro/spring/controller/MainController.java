@@ -15,9 +15,9 @@ import com.devpro.spring.utils.WebUtils;
 @Controller
 public class MainController {
 	
-	@RequestMapping(value = {"/", "homepage"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "home"}, method = RequestMethod.GET)
 	public String homePage(Model model) {
-		return "homePage";
+		return "home";
 	}
 	
 	@GetMapping("/login")
@@ -34,6 +34,6 @@ public class MainController {
 			String message = "Xin chào " + principal.getName() + ". Bạn không có quyền truy cập vào trang web này";
 			model.addAttribute("message", message);
 		}
-		return "403page";
+		return "403";
 	}
 }

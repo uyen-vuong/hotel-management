@@ -36,10 +36,11 @@
 			<nav class="main_nav">
 				<ul class="d-flex flex-row align-items-center justify-content-start">
 					<li class="active"><a th:if="${#request.userPrincipal != null}" href="#">Trang chủ</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/chamberManage}">Quản lý phòng</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/employeeManage}">Quản lý đặt món</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/accountManage}">Quản lý dịch vụ</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/typeService}">Quản lý nhân </a></li>
+					<li><a th:if="${#request.userPrincipal != null}" href="#">Check-in</a></li>
+					<li><a th:if="${#request.userPrincipal != null}" href="#">Check-out</a></li>
+					<li><a th:if="${#request.userPrincipal != null}" href="#">Đặt món</a></li>
+					<li><a th:if="${#request.userPrincipal != null}" href="#">Khách hàng</a></li>
+					<li><a th:if="${#request.userPrincipal != null}" href="#">Dịch vụ khác</a></li>
 					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Đăng xuất</a></li>
 				</ul>
 			</nav>
@@ -48,6 +49,8 @@
 		
 	</header>
 
+
+	<div>
 	<!-- Logo Overlay -->
 
 	<div class="logo_overlay">
@@ -88,7 +91,6 @@
 
 		</div>
 	</div>
-
 	<!-- Home -->
 
 	<div class="home">
@@ -146,6 +148,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</div>
 	</footer>
+</div>
 </div>
 
 <script src="homepage/js/jquery-3.3.1.min.js"></script>
