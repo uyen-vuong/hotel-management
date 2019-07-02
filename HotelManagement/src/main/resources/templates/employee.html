@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{starter::head('Thông tin khách hàng')}">
+<head th:replace="~{starter::head('Thông tin nhân viên')}">
 <meta charset="utf-8">
 </head>
 <body>
@@ -18,16 +18,18 @@
 								<th class="hidden" style="text-align: center">ID</th>
 								<th style="text-align: center">Họ tên</th>
 								<th style="text-align: center">Ngày sinh</th>
-								<th style="text-align: center">CMT/CCCD</th>
-								<th style="text-align: center">Số điện thoại</th>
-								<th style="text-align: center">Hộ chiếu</th>
+								<th style="text-align: center">Giới tính</th>
 								<th style="text-align: center">Địa chỉ</th>
-								<th style="text-align: center">Quốc tịch</th>
-								<th style="text-align: center">Vip</th>
+								<th style="text-align: center">Vị trí</th>
+								<th style="text-align: center">Email</th>
+								<th style="text-align: center">Số điện thoại</th>
+								<th style="text-align: center">Lương</th>
+								<th style="text-align: center">ID của quản lý</th>
+								<th style="text-align: center">ID của bộ phận</th>
 								<th style="text-align: center">Edit</th>
 							</tr>
 						</thead>
-
+			<!--
 						<tfoot>
 							<tr>
 								<th style="text-align: center">Stt</th>
@@ -43,19 +45,22 @@
 								<th style="text-align: center">Edit</th>
 							</tr>
 						</tfoot>
+			-->
 						<tbody>
-							<th:block th:each="guest,item:${guests}">
+							<th:block th:each="employee,item:${employees}">
 								<tr>
 									<td style="text-align: center" th:utext="${item.count}"></td>
-									<td class="hidden" th:utext="${guest.guestId}"></td>
-									<td th:utext="${guest.guestName}"></td>
-									<td th:utext="${guest.birth}"></td>
-									<td th:utext="${guest.address}"></td>
-									<td th:utext="${guest.phoneNumber}"></td>
-									<td th:utext="${guest.idCard}"></td>
-									<td th:utext="${guest.passport}"></td>
-									<td th:utext="${guest.nationality}"></td>
-									<td style="text-align: center" th:utext="${guest.isVip}"></td>
+									<td class="hidden" th:utext="${employee.employeeId}"></td>
+									<td th:utext="${employee.employeeName}"></td>
+									<td th:utext="${employee.birth}"></td>
+									<td th:utext="${employee.gender}"></td>
+									<td th:utext="${employee.address}"></td>
+									<td th:utext="${employee.employeePosition}"></td>
+									<td th:utext="${employee.email}"></td>
+									<td th:utext="${employee.phoneNumber}"></td>
+									<td th:utext="${employee.salary}"></td>
+									<td th:utext="${employee.managerId}"></td>
+									<td th:utext="${employee.sectionId}"></td>
 									<td style="text-align: center">
 										<button type="button" class="btn btn-primary"
 											data-toggle="modal" data-target="#exampleModalCenter">
@@ -74,9 +79,9 @@
 					<div class="modal-dialog modal-dialog-centered" role="document"
 						style="margin-top: 200px">
 						<div class="modal-content">
-							<form th:action="@{/update-guest-info}" method="get">
+							<form th:action="@{/update-employee-info}" method="get">
 								<div class="modal-header">
-									<h5 class="modal-title" style="font-weight: bold;">Sửa thông tin khách</h5>
+									<h5 class="modal-title" style="font-weight: bold;">Sửa thông tin nhân viên</h5>
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
@@ -85,42 +90,39 @@
 								<div class="modal-body">
 									<div class="form-group col-md-6 hidden">
 										<input type="text" class="form-control"
-											placeholder="Há»� tÃªn..." required>
+											placeholder="Họ và tên..." required>
 									</div>
 									<div class="form-group col-md-6">
 										<input type="text" class="form-control"
-											placeholder="Há»� tÃªn..." required>
-									</div>
-									<div class="form-group col-md-6">
-										<input type="text" class="form-control"
-											placeholder="Số căn cước..." required>
-									</div>
-									<div class="form-group col-md-6">
-										<input type="date" class="form-control"
 											placeholder="Ngày sinh..." required>
 									</div>
 									<div class="form-group col-md-6">
 										<input type="text" class="form-control"
-											placeholder="Số hộ chiếu..." required>
+											placeholder="Giới tính..." required>
 									</div>
 									<div class="form-group col-md-6">
-										<input type="text" class="form-control"
+										<input type="date" class="form-control"
 											placeholder="Địa chỉ..." required>
 									</div>
 									<div class="form-group col-md-6">
 										<input type="text" class="form-control"
-											placeholder="Quốc tịch..." required>
+											placeholder="Vị trí..." required>
+									</div>
+									<div class="form-group col-md-6">
+										<input type="text" class="form-control"
+											placeholder="Email..." required>
+									</div>
+									<div class="form-group col-md-6">
+										<input type="text" class="form-control"
+											placeholder="Số điện thoại..." required>
 									</div>
 									<div class="form-group col-md-6">
 										<input type="tel" class="form-control"
-											placeholder="Số điện thoại..." required>
+											placeholder="Lương..." required>
 									</div>
-									<div class="form-group col-md-6" style="margin-top: 5px">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" required
-												id="checkVip"> <label style="margin-left: 20px"
-												class="form-check-label" for="checkVip">Khách hàng VIP</label>
-										</div>
+									<div class="form-group col-md-6">
+										<input type="tel" class="form-control"
+											placeholder="ID của quản lý..." required>
 									</div>
 								</div>
 								<div class="modal-footer" style="width: 100%">
