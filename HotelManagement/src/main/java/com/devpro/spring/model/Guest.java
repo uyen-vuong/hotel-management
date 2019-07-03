@@ -37,6 +37,13 @@ public class Guest {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 	
+	@Override
+	public String toString() {
+		return "Guest [guestId=" + guestId + ", guestName=" + guestName + ", birth=" + birth + ", idCard=" + idCard
+				+ ", passport=" + passport + ", address=" + address + ", nationality=" + nationality + ", phoneNumber="
+				+ phoneNumber + ", isVip=" + isVip + "]";
+	}
+
 	@Column(name = "is_vip")
 	private String isVip;
 	
