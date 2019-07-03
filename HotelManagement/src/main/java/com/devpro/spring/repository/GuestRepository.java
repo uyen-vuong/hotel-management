@@ -6,4 +6,5 @@ import com.devpro.spring.model.Guest;
 
 public interface GuestRepository extends JpaRepository<Guest, Long>{
 	
+	
 }

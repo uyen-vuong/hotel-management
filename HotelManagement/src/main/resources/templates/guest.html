@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{starter::head('Guest Infomation')}">
+<head th:replace="~{starter::head('Thông tin khách hàng')}">
+<meta charset="utf-8">
 </head>
 <body>
 	<div class="super_container">
 		<div th:replace="~{starter::header}"></div>
 		<div th:replace="~{starter::header_content}"></div>
-		<div class="container" style="margin-top: 350px">
+		<div class="container" style="margin-top: 350px; margin-bottom: 50px">
 
 			<div class="row">
 				<div class="col-md-12">
@@ -17,10 +18,10 @@
 								<th class="hidden" style="text-align: center">ID</th>
 								<th style="text-align: center">Họ tên</th>
 								<th style="text-align: center">Ngày sinh</th>
-								<th style="text-align: center">Địa chỉ</th>
+								<th style="text-align: center">CMT/CCCD</th>
 								<th style="text-align: center">Số điện thoại</th>
-								<th style="text-align: center">Căn cước</th>
 								<th style="text-align: center">Hộ chiếu</th>
+								<th style="text-align: center">Địa chỉ</th>
 								<th style="text-align: center">Quốc tịch</th>
 								<th style="text-align: center">Vip</th>
 								<th style="text-align: center">Edit</th>
@@ -33,10 +34,10 @@
 								<th class="hidden" style="text-align: center">ID</th>
 								<th style="text-align: center">Họ tên</th>
 								<th style="text-align: center">Ngày sinh</th>
-								<th style="text-align: center">Địa chỉ</th>
+								<th style="text-align: center">CMT/CCCD</th>
 								<th style="text-align: center">Số điện thoại</th>
-								<th style="text-align: center">Căn cước</th>
 								<th style="text-align: center">Hộ chiếu</th>
+								<th style="text-align: center">Địa chỉ</th>
 								<th style="text-align: center">Quốc tịch</th>
 								<th style="text-align: center">Vip</th>
 								<th style="text-align: center">Edit</th>
@@ -55,12 +56,10 @@
 									<td th:utext="${guest.passport}"></td>
 									<td th:utext="${guest.nationality}"></td>
 									<td style="text-align: center" th:utext="${guest.isVip}"></td>
-									<td style="text-align: center">
-										<button type="button" class="btn btn-primary"
-											data-toggle="modal" data-target="#exampleModalCenter">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</td>
+									<td style="text-align: center"><a
+										th:href="@{/findOne/(id=${guest.guestId})}"
+										class="btn btn-primary text-white eBtn"><span
+											class="glyphicon glyphicon-pencil"></span></a></td>
 								</tr>
 							</th:block>
 						</tbody>
@@ -73,10 +72,9 @@
 					<div class="modal-dialog modal-dialog-centered" role="document"
 						style="margin-top: 200px">
 						<div class="modal-content">
-							<form th:action="@{/update-guest-info}" method="get">
+							<form method="get" th:action="@{/update-guest-info}">
 								<div class="modal-header">
-									<h5 class="modal-title" style="font-weight: bold;">Sửa
-										thông tin khách</h5>
+									<h5 class="modal-title" style="font-weight: bold;">Sửa thông tin khách</h5>
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
@@ -84,50 +82,78 @@
 								</div>
 								<div class="modal-body">
 									<div class="form-group col-md-6 hidden">
+<<<<<<< HEAD
 										<input type="text" class="form-control"
-											placeholder="Họ tên..." required>
-									</div>
-									<div class="form-group col-md-6">
-										<input type="text" class="form-control"
-											placeholder="Họ tên..." required>
+											placeholder="Há»� tÃªn..." required>
 									</div>
 									<div class="form-group col-md-6">
 										<input type="text" class="form-control"
-											placeholder="Số căn cước..." required>
+											placeholder="Há»� tÃªn..." required>
+=======
+										<input type="text" class="form-control" placeholder="ID..."
+											required id="id" name="id">
 									</div>
 									<div class="form-group col-md-6">
-										<input type="date" class="form-control"
-											placeholder="Ngày sinh..." required>
+										<label for="name" class="title-input">Họ tên</label> <input
+											type="text" class="form-control" placeholder="Họ tên..."
+											required id="name" name="name">
+>>>>>>> 8a47fd7906de41e115ac884fb5d9fbeec6e7a87a
 									</div>
 									<div class="form-group col-md-6">
+										<label for="card" class="title-input">Căn cước </label> <input
+											type="text" class="form-control" placeholder="Số căn cước..."
+											required id="card" name="card">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="birth" class="title-input">Ngày sinh</label> <input
+											type="date" class="form-control" placeholder="Ngày sinh..."
+											id="birth" name="birth">
+									</div>
+									<div class="form-group col-md-6">
+<<<<<<< HEAD
 										<input type="text" class="form-control"
-											placeholder="Số hộ chiếu" required>
+											placeholder="Số hộ chiếu..." required>
+=======
+										<label for="passport" class="title-input">Hộ chiếu</label> <input
+											type="text" class="form-control" placeholder="Số hộ chiếu"
+											id="passport" name="passport">
+>>>>>>> 8a47fd7906de41e115ac884fb5d9fbeec6e7a87a
 									</div>
 									<div class="form-group col-md-6">
+										<label for="address" class="title-input">Địa chỉ</label> <input
+											type="text" class="form-control" placeholder="Địa chỉ..."
+											id="address" name="address">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="nationality" class="title-input">Quốc tịch</label>
 										<input type="text" class="form-control"
-											placeholder="Địa chỉ..." required>
+											placeholder="Quốc tịch..." id="nationality"
+											name="nationality">
 									</div>
 									<div class="form-group col-md-6">
-										<input type="text" class="form-control"
-											placeholder="Quốc tịch..." required>
+										<label for="phone" class="title-input">Số điện thoại</label> <input
+											type="tel" class="form-control"
+											placeholder="Số điện thoại..." id="phone" name="phone">
 									</div>
-									<div class="form-group col-md-6">
-										<input type="tel" class="form-control"
-											placeholder="Số điện thoại..." required>
-									</div>
-									<div class="form-group col-md-6" style="margin-top: 5px">
+									<div class="form-group col-md-6" style="margin-top: 30px">
 										<div class="form-check">
+<<<<<<< HEAD
 											<input class="form-check-input" type="checkbox" required
 												id="checkVip"> <label style="margin-left: 20px"
+												class="form-check-label" for="checkVip">Khách hàng VIP</label>
+=======
+											<input class="form-check-input" type="checkbox" id="checkVip"
+												name="vip"> <label style="margin-left: 20px"
 												class="form-check-label" for="checkVip">Khách hàng
 												Vip </label>
+>>>>>>> 8a47fd7906de41e115ac884fb5d9fbeec6e7a87a
 										</div>
 									</div>
 								</div>
 								<div class="modal-footer" style="width: 100%">
+									<button type="submit" class="btn btn-primary">Lưu</button>
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Đóng</button>
-									<button type="submit" class="btn btn-primary">Lưu</button>
 								</div>
 							</form>
 						</div>
@@ -139,5 +165,40 @@
 		<div th:replace="~{starter::footer}"></div>
 		<div th:replace="~{starter::script}"></div>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$('#datatable').dataTable();
+
+			$('.eBtn').click(function(e) {
+				e.preventDefault();
+				var href = $(this).attr('href');
+
+				$.get(href, function(guest, status) {
+					$('#id').val(guest.guestId).hide();
+					$('#name').val(guest.guestName);
+					$('#birth').val(guest.birth);
+					$('#passport').val(guest.passport);
+					$('#address').val(guest.address);
+					$('#phone').val(guest.phoneNumber);
+					$('#card').val(guest.idCard);
+					$('#nationality').val(guest.nationality);
+					if (guest.isVip === 'yes') {
+						$('#checkVip').prop('checked', true);
+					} else {
+						$('#checkVip').prop('checked', false);
+					}
+				});
+
+				$('#exampleModalCenter').modal();
+
+			});
+
+			$('input').click(function() {
+				this.select();
+			});
+
+		});
+	</script>
 </body>
 </html>

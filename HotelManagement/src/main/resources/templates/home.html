@@ -39,8 +39,12 @@
 					<li><a th:if="${#request.userPrincipal != null}" href="#">Check-in</a></li>
 					<li><a th:if="${#request.userPrincipal != null}" href="#">Check-out</a></li>
 					<li><a th:if="${#request.userPrincipal != null}" href="#">Đặt món</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" href="#">Khách hàng</a></li>
+					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/guests}">Khách hàng</a></li>
+<<<<<<< HEAD
+					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/employees}">Nhân viên</a></li>
+=======
 					<li><a th:if="${#request.userPrincipal != null}" href="#">Dịch vụ khác</a></li>
+>>>>>>> 8a47fd7906de41e115ac884fb5d9fbeec6e7a87a
 					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Đăng xuất</a></li>
 				</ul>
 			</nav>

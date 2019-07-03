@@ -36,7 +36,7 @@ public class Guest {
 	
 	@Column(name = "phone_number")
 	private String phoneNumber;
-	
+
 	@Column(name = "is_vip")
 	private String isVip;
 	
@@ -129,4 +129,31 @@ public class Guest {
 	public void setIsVip(String isVip) {
 		this.isVip = isVip;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Guest [guestId=");
+		builder.append(guestId);
+		builder.append(", guestName=");
+		builder.append(guestName);
+		builder.append(", birth=");
+		builder.append(birth);
+		builder.append(", idCard=");
+		builder.append(idCard);
+		builder.append(", passport=");
+		builder.append(passport);
+		builder.append(", address=");
+		builder.append(address);
+		builder.append(", nationality=");
+		builder.append(nationality);
+		builder.append(", phoneNumber=");
+		builder.append(phoneNumber);
+		builder.append(", isVip=");
+		builder.append(isVip);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
 }
