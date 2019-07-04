@@ -6,5 +6,4 @@ import com.devpro.spring.model.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 
-	
 }

@@ -42,11 +42,7 @@ create table check_out(
     note nvarchar(500),
     constraint check_out_pk primary key (check_out_id)
 );
-create table zone(
-	zone_id bigint auto_increment,
-    zone_name nvarchar(50),
-    constraint zone_pk primary key (zone_id)
-);
+
 create table chamber(
 	chamber_id bigint auto_increment,
     chamber_number nvarchar(10),
@@ -57,9 +53,7 @@ create table chamber(
     capacity varchar(10),
     note nvarchar(255),
     is_empty nvarchar(10) not null,
-    zone_id bigint,
-    constraint chamber_pk primary key (chamber_id),
-    constraint chamber_fk foreign key (zone_id) references zone(zone_id)
+    constraint chamber_pk primary key (chamber_id)
 );
 create table furniture(
 	furniture_id bigint auto_increment,
@@ -107,6 +101,7 @@ create table order_food(
 	order_food_id bigint auto_increment,
     quantity varchar(10),
     total_price varchar(25),
+    order_date nvarchar(30),
     discount varchar(25),
     guest_id bigint,
     constraint order_food_pk primary key (order_food_id),
