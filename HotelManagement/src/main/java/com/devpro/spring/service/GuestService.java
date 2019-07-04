@@ -11,9 +11,9 @@ public interface GuestService {
 	
 	Guest findGuest(Long id);
 	
-	Page<Guest> findAllGuest(Pageable pageable);
+	Page<Guest> searchGuests(Pageable pageable,String text);
 	
-	List<Guest> findAll();
+	List<Guest> searchGuests(String text);
 	
 	void addGuestInfo(Guest guest);
 	

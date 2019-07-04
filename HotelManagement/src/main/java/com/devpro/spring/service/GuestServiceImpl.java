@@ -35,15 +35,16 @@ public class GuestServiceImpl implements GuestService{
 	}
 
 	@Override
-	public Page<Guest> findAllGuest(Pageable pageable) {
+	public Page<Guest> searchGuests(Pageable pageable, String text) {
 		// TODO Auto-generated method stub
-		return guestRepository.findAll(pageable);
+		return guestRepository.searchGuests(pageable,"%"+text.trim()+"%");
+		// "%"+text.trim()+"%" xu ly tu khoa(vd: ___Huong..! -> %Huong..!%)
 	}
 
 	@Override
-	public List<Guest> findAll() {
+	public List<Guest> searchGuests(String text) {
 		// TODO Auto-generated method stub
-		return guestRepository.findAll();
+		return guestRepository.searchGuests("%"+text.trim()+"%");
 	}
 
 
