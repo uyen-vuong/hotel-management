@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -44,15 +46,16 @@ public class Employee {
 	@Column(name = "manager_id")
 	private Long managerId;
 	
-	@Column(name = "section_id")
-	private Long sectionId;
+	@ManyToOne
+	@JoinColumn(name = "section_id", nullable = false)
+	private Section section;
 	
 	public Employee() {
 		super();
 	}
 
 	public Employee(Long employeeId, String employeeName, String birth, String gender, String address,
-			String employeePosition, String email, String phoneNumber, String salary, Long managerId, Long sectionId) {
+			String employeePosition, String email, String phoneNumber, String salary, Long managerId, Section section) {
 		super();
 		this.employeeId = employeeId;
 		this.employeeName = employeeName;
@@ -64,7 +67,7 @@ public class Employee {
 		this.phoneNumber = phoneNumber;
 		this.salary = salary;
 		this.managerId = managerId;
-		this.sectionId = sectionId;
+		this.section = section;
 	}
 
 	public Long getEmployeeId() {
@@ -147,12 +150,12 @@ public class Employee {
 		this.managerId = managerId;
 	}
 
-	public Long getSectionId() {
-		return sectionId;
+	public Section getSection() {
+		return section;
 	}
 
-	public void setSectionId(Long sectionId) {
-		this.sectionId = sectionId;
+	public void setSection(Section section) {
+		this.section = section;
 	}
 
 	@Override
@@ -178,11 +181,13 @@ public class Employee {
 		builder.append(salary);
 		builder.append(", managerId=");
 		builder.append(managerId);
-		builder.append(", sectionId=");
-		builder.append(sectionId);
+		builder.append(", section=");
+		builder.append(section);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
 	
 	
 }
