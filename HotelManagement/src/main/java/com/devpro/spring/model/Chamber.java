@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,7 +14,6 @@ public class Chamber {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	@Column(name = "chamber_id")
 	private Long chamberId;
 	
@@ -32,32 +32,19 @@ public class Chamber {
 	@Column(name = "chamber_area")
 	private String chamberArea;
 	
-	@Column(name = "capacity")
-	private String capacity;
-	
 	@Column(name = "note")
 	private String note;
 	
 	@Column(name = "is_empty")
 	private String isEmpty;
+	
+	@OneToOne(mappedBy = "chamber")
+	private Rental rental;
 
 	public Chamber() {
 		super();
 	}
 	
-	public Chamber(Long chamberId, String chamberNumber, String chamberType, String isVip, String priceDay,
-			String chamberArea, String capacity, String note, String isEmpty) {
-		super();
-		this.chamberId = chamberId;
-		this.chamberNumber = chamberNumber;
-		this.chamberType = chamberType;
-		this.isVip = isVip;
-		this.priceDay = priceDay;
-		this.chamberArea = chamberArea;
-		this.capacity = capacity;
-		this.note = note;
-		this.isEmpty = isEmpty;
-	}
 
 	public Long getChamberId() {
 		return chamberId;
@@ -107,14 +94,6 @@ public class Chamber {
 		this.chamberArea = chamberArea;
 	}
 
-	public String getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(String capacity) {
-		this.capacity = capacity;
-	}
-
 	public String getNote() {
 		return note;
 	}
@@ -127,33 +106,34 @@ public class Chamber {
 		return isEmpty;
 	}
 
+	public Rental getRental() {
+		return rental;
+	}
+
+
+	public void setRental(Rental rental) {
+		this.rental = rental;
+	}
+
+
+	public Chamber(Long chamberId, String chamberNumber, String chamberType, String isVip, String priceDay,
+			String chamberArea, String note, String isEmpty, Rental rental) {
+		super();
+		this.chamberId = chamberId;
+		this.chamberNumber = chamberNumber;
+		this.chamberType = chamberType;
+		this.isVip = isVip;
+		this.priceDay = priceDay;
+		this.chamberArea = chamberArea;
+		this.note = note;
+		this.isEmpty = isEmpty;
+		this.rental = rental;
+	}
+
+
 	public void setIsEmpty(String isEmpty) {
 		this.isEmpty = isEmpty;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Chamber [chamberId=");
-		builder.append(chamberId);
-		builder.append(", chamberNumber=");
-		builder.append(chamberNumber);
-		builder.append(", chamberType=");
-		builder.append(chamberType);
-		builder.append(", isVip=");
-		builder.append(isVip);
-		builder.append(", priceDay=");
-		builder.append(priceDay);
-		builder.append(", chamberArea=");
-		builder.append(chamberArea);
-		builder.append(", capacity=");
-		builder.append(capacity);
-		builder.append(", note=");
-		builder.append(note);
-		builder.append(", isEmpty=");
-		builder.append(isEmpty);
-		builder.append("]");
-		return builder.toString();
-	}
 	
 }

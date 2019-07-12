@@ -1,8 +1,8 @@
 package com.devpro.spring.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.devpro.spring.model.Chamber;
@@ -21,12 +21,6 @@ public class ChamberServiceImpl implements ChamberService{
 	}
 
 	@Override
-	public List<Chamber> findAllChamber() {
-		// TODO Auto-generated method stub
-		return chamberRepository.findAll();
-	}
-
-	@Override
 	public void addChamberInfo(Chamber chamber) {
 		// TODO Auto-generated method stub
 		chamberRepository.save(chamber);
@@ -42,6 +36,34 @@ public class ChamberServiceImpl implements ChamberService{
 	public void editChamberInfo(Chamber chamber) {
 		// TODO Auto-generated method stub
 		chamberRepository.save(chamber);
+	}
+
+	@Override
+	public Page<Chamber> findAllChamber(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return chamberRepository.findAll(pageable);
+	}
+
+	@Override
+	public Page<Chamber> searchChamberWithPrice1(Pageable pageable,String type, String vip) {
+		return chamberRepository.searchChamberWithPrice1(pageable,type, vip);
+	}
+
+	@Override
+	public Page<Chamber> searchChamberWithPrice2(Pageable pageable,String type, String vip) {
+		// TODO Auto-generated method stub
+		return chamberRepository.searchChamberWithPrice2(pageable,type, vip);
+	}
+
+	@Override
+	public Page<Chamber> searchChamberWithPrice3(Pageable pageable,String type, String vip) {
+		// TODO Auto-generated method stub
+		return chamberRepository.searchChamberWithPrice3(pageable,type, vip);
+	}
+
+	@Override
+	public void updateCheckIn(Long id) {
+		chamberRepository.updateChamberIsEmpty("false", id);
 	}
 
 	

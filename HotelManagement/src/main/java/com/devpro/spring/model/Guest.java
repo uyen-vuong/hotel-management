@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +20,20 @@ public class Guest {
 	@Column(name = "guest_name")
 	private String guestName;
 	
+	public Guest(Long guestId, String guestName, String birth, String idCard, String passport, String address,
+			String nationality, String phoneNumber, String isVip) {
+		super();
+		this.guestId = guestId;
+		this.guestName = guestName;
+		this.birth = birth;
+		this.idCard = idCard;
+		this.passport = passport;
+		this.address = address;
+		this.nationality = nationality;
+		this.phoneNumber = phoneNumber;
+		this.isVip = isVip;
+	}
+
 	@Column(name = "birth")
 	private String birth;
 	
@@ -43,20 +58,9 @@ public class Guest {
 	public Guest() {
 		super();
 	}
-
-	public Guest(long guestId, String guestName, String birth, String idCard, String passport, String address,
-			String nationality, String phoneNumber, String isVip) {
-		super();
-		this.guestId = guestId;
-		this.guestName = guestName;
-		this.birth = birth;
-		this.idCard = idCard;
-		this.passport = passport;
-		this.address = address;
-		this.nationality = nationality;
-		this.phoneNumber = phoneNumber;
-		this.isVip = isVip;
-	}
+	
+	@OneToOne(mappedBy = "guest")
+	private Rental rental;
 
 	public long getGuestId() {
 		return guestId;
@@ -130,30 +134,41 @@ public class Guest {
 		this.isVip = isVip;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Guest [guestId=");
-		builder.append(guestId);
-		builder.append(", guestName=");
-		builder.append(guestName);
-		builder.append(", birth=");
-		builder.append(birth);
-		builder.append(", idCard=");
-		builder.append(idCard);
-		builder.append(", passport=");
-		builder.append(passport);
-		builder.append(", address=");
-		builder.append(address);
-		builder.append(", nationality=");
-		builder.append(nationality);
-		builder.append(", phoneNumber=");
-		builder.append(phoneNumber);
-		builder.append(", isVip=");
-		builder.append(isVip);
-		builder.append("]");
-		return builder.toString();
+	public Rental getRental() {
+		return rental;
 	}
-	
+
+	public void setRental(Rental rental) {
+		this.rental = rental;
+	}
+
+	public Guest(Long guestId, String guestName, String birth, String idCard, String passport, String address,
+			String nationality, String phoneNumber, String isVip, Rental rental) {
+		super();
+		this.guestId = guestId;
+		this.guestName = guestName;
+		this.birth = birth;
+		this.idCard = idCard;
+		this.passport = passport;
+		this.address = address;
+		this.nationality = nationality;
+		this.phoneNumber = phoneNumber;
+		this.isVip = isVip;
+		this.rental = rental;
+	}
+
+	public Guest(String guestName, String birth, String idCard, String passport, String address, String nationality,
+			String phoneNumber, String isVip) {
+		super();
+		this.guestName = guestName;
+		this.birth = birth;
+		this.idCard = idCard;
+		this.passport = passport;
+		this.address = address;
+		this.nationality = nationality;
+		this.phoneNumber = phoneNumber;
+		this.isVip = isVip;
+	}
+
 	
 }

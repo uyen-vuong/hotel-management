@@ -29,20 +29,6 @@ create table persistent_login(
     last_used timestamp not null,
     constraint persistent_login_pk primary key (series)
 );
-create table check_in(
-	check_in_id bigint auto_increment,
-    check_in_date varchar(25),
-    deposit varchar(25),
-    note nvarchar(500),
-    constraint check_in_pk primary key (check_in_id)
-);
-create table check_out(
-	check_out_id bigint auto_increment,
-    check_out_date varchar(25),
-    note nvarchar(500),
-    constraint check_out_pk primary key (check_out_id)
-);
-
 create table chamber(
 	chamber_id bigint auto_increment,
     chamber_number nvarchar(10),
@@ -50,25 +36,9 @@ create table chamber(
     is_vip nvarchar(10),
     price_day varchar(25),
     chamber_area varchar(25),
-    capacity varchar(10),
     note nvarchar(255),
     is_empty nvarchar(10) not null,
     constraint chamber_pk primary key (chamber_id)
-);
-create table furniture(
-	furniture_id bigint auto_increment,
-    furniture_name nvarchar(125),
-    constraint furniture_pk primary key (furniture_id)
-);
-create table chamber_furniture(
-	chamber_furniture_id bigint auto_increment,
-    chamber_furniture_status nvarchar(125),
-    note nvarchar(255),
-    furniture_id bigint,
-    chamber_id bigint,
-	constraint chamber_furniture_pk primary key (chamber_furniture_id),
-    constraint chamber_furniture_fk foreign key (furniture_id) references furniture(furniture_id),
-    constraint chamber_furniture_fk2 foreign key (chamber_id) references chamber(chamber_id)
 );
 create table guest(
 	guest_id bigint auto_increment,
@@ -79,6 +49,7 @@ create table guest(
     address nvarchar(125),
     nationality nvarchar(50),
     phone_number varchar(25),
+    email varchar(59),-- add new
     is_vip nvarchar(10),
     constraint guest_pk primary key (guest_id)
 );
@@ -143,25 +114,23 @@ create table guest_service(
 create table payment(
 	payment_id bigint auto_increment,
     method nvarchar(50),
-    payment_date varchar(25),
+    -- payment_date varchar(25), -- nen bo
     constraint payment_pk primary key (payment_id)
 );
 create table rental(
 	rental_id bigint auto_increment,
-    total_payment varchar(25),
     discount varchar(25),
+    check_in_date varchar(25),
+	check_out_date varchar(25),
     note nvarchar(255),
+    paid varchar(25),
     guest_id bigint,
-    check_in_id bigint,
-    check_out_id bigint,
     chamber_id bigint,
     payment_id bigint,
     constraint rental_pk primary key (rental_id),
     constraint rental_fk foreign key (guest_id) references guest(guest_id),
-    constraint rental_fk2 foreign key (check_in_id) references check_in(check_in_id),
-    constraint rental_fk3 foreign key (check_out_id) references check_out(check_out_id),
-    constraint rental_fk4 foreign key (chamber_id) references chamber(chamber_id),
-    constraint rental_fk5 foreign key (payment_id) references payment(payment_id)
+    constraint rental_fk1 foreign key (chamber_id) references chamber(chamber_id),
+    constraint rental_fk2 foreign key (payment_id) references payment(payment_id)
 );
 create table section(
 	section_id bigint auto_increment,
@@ -171,7 +140,11 @@ create table section(
 );
 create table employee(
 	employee_id bigint auto_increment,
+<<<<<<< HEAD
     employee_number nvarchar(7),
+=======
+    employee_number varchar(25),
+>>>>>>> 2f0e9b9541a642c29082fa35611a4209892a63e8
     employee_name varchar(125),
     birth varchar(25),
     gender nvarchar(10),
@@ -206,7 +179,7 @@ insert into App_User (USER_ID, USER_NAME, ENCRYTED_PASSWORD, ENABLED) values (2,
 insert into App_User (USER_ID, USER_NAME, ENCRYTED_PASSWORD, ENABLED) values (3, 'admin', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1);
 insert into hotel_management.guest(guest_name,birth,id_card,passport,address,nationality,phone_number,is_vip) values
 ('Nguyến Văn An','1998-10-02','123456789102',null,'Hà Nội','Việt Nam','0123456789','yes'),
-('Nguyến Văn Nam','1998-10-02','123456789102','A01236','Hà Nội','Việt Nam','0123456789','no'),
+('Nguyến Văn Nam','1998-10-02','123456789102','A01236','Viet Nam dsdad','Việt Nam','0123456789','no'),
 ('Yuki Mira','1998-10-02','123456789102','A01236','Hà Nội','Việt Nam','0123456789','yes'),
 ('Hoài Anh','1998-10-02','123456789102',null,'Hà Nội','Việt Nam','0123456789','yes'),
 ('Nghiêm Túc','1998-10-02','123456789102','A01236','Hà Nội','Việt Nam','0123456789','no'),
@@ -215,10 +188,43 @@ insert into hotel_management.guest(guest_name,birth,id_card,passport,address,nat
 ('Nguyến Văn An','1998-10-02','123456789102','A9086','Hà Nội','Việt Nam','0123456789','no'),
 ('Nguyến Văn Nam','1998-10-02','123456789102','A01236','Hà Nội','Việt Nam','0123456789','yes'),
 ('Nguyến Văn An','1998-10-02','123456789102',null,'Hà Nội','Việt Nam','0123456789','yes');
+
+select count(*) from guest where guest.id_card = '123456789102' or guest.phone_number = '0123456789' or guest.passport = 'A9086';
+
+delete from rental;
 delete from guest;
+delete from chamber;
+insert into hotel_management.chamber(chamber_number,chamber_type,is_vip,price_day,chamber_area,note,is_empty) values 
+('101','single','true','1700000','70','Phòng này là phòng vip','true'),
+('102','couple','false','1500000','65.5','Phòng đôi thường','true'),
+('103','family','true','1700000','70','','true'),
+('104','couple','true','1700000','70','','true'),
+('105','single','true','5000000','70','Phòng này là phòng vip','true'),
+('106','couple','false','1700000','70','Phòng này là phòng vip','true'),
+('107','couple','true','3500000','70','Phòng này là phòng vip','true'),
+('108','couple','true','1700000','45.6','Phòng này là phòng vip','true'),
+('109','single','true','5500000','70','Phòng này là phòng vip','true'),
+('110','family','true','1700000','70','Phòng này là phòng vip','true'),
+('111','single','false','700000','70','Phòng này là phòng vip','true'),
+('112','couple','true','1700000','70','','true'),
+('113','couple','false','1700000','50.6','Phòng này là phòng vip','true'),
+('114','family','true','5500000','70','Phòng này là phòng vip','true'),
+('115','single','true','1700000','70','Phòng này là phòng vip','true'),
+('116','Couple','true','10000000','70.56','Phòng này là phòng vip','true');
+insert into rental(rental.guest_id)value(11);
+
 select * from guest;
+select * from rental;
+select * from chamber;
+select * from hotel_management.persistent_login;
 select * from guest where guest_name like '%no%' or birth like '%no%' or id_card like '%no%' or  passport like '%no%' or address like '%no%' or nationality like '%no%' or phone_number like '%no%'or is_vip like '%no%';
 
+select * from hotel_management.check_in;
+select * from hotel_management.chamber where cast(price_day as unsigned) < 1000000 and chamber_type = 'single' and is_vip = 'false' and is_empty = 'false';
+select * from hotel_management.chamber where cast(price_day as unsigned) between 1000000 and 3000000 and chamber_type = 'couple' and is_vip = 'false' and is_empty = 'true';
+select * from hotel_management.chamber where cast(price_day as unsigned) > 3000000 and chamber_type = 'couple' and is_vip = 'true' and is_empty = 'true';
+
+select * from hotel_management.guest where  guest.passport = 'A01236' or guest.id_card = ''  or guest.phone_number = ''
 
 
 

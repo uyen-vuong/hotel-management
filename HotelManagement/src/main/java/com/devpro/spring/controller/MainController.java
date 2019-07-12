@@ -15,7 +15,7 @@ import com.devpro.spring.utils.WebUtils;
 @Controller
 public class MainController {
 	
-	@RequestMapping(value = {"/", "home"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
 	public String homePage(Model model) {
 		return "home";
 	}

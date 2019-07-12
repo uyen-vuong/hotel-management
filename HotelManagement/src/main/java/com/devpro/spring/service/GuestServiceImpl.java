@@ -47,5 +47,17 @@ public class GuestServiceImpl implements GuestService{
 		return guestRepository.searchGuests("%"+text.trim()+"%");
 	}
 
+	@Override
+	public Guest searchGuestJustInsertd(String passport, String idCard, String phoneNumber) {
+		// TODO Auto-generated method stub
+		return guestRepository.searchGuestJustInsertd(idCard, passport, phoneNumber);
+	}
+
+	@Override
+	public Integer checkExistGuest(String idCard, String phoneNumber, String passport) {
+		// TODO Auto-generated method stub
+		return guestRepository.checkExistGuest(idCard, phoneNumber, passport);
+	}
+
 
 }

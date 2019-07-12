@@ -1,7 +1,5 @@
 package com.devpro.spring.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,13 +27,27 @@ public class GuestController {
 
 		Pageable pageable = PageRequest.of(page, 10); // mac dinh 10 ban ghi 1 trang
 		Page<Guest> pages = guestService.searchGuests(pageable, text);
-		List<Guest> list = guestService.searchGuests(text);
+		
 		int current = pages.getNumber() + 1;
 		long total = pages.getTotalPages();
-		int begin = Math.max(1, (current - list.size()));
+		long begin = 1;
 		long end = 1;
+		if(current>5 && total>6) {
+			begin = Math.max(1, current);
+		}
 		if(total!=0) {
-			end = Math.min(begin + 5, total);
+			end = Math.min(begin + 4, total);
+		}
+		if(current==total-5) {
+			end = total;
+		}
+		boolean extra = false;
+		boolean checkLast = false;
+		if(total >5 && current<total-5) {
+			extra = true;
+		}
+		if(total >6 && current<total-5) {
+			checkLast = true;
 		}
 		String baseUrl = "/guests?page=";
 		String searchUrl = "&search-text="+text;
@@ -46,7 +58,8 @@ public class GuestController {
 		model.addAttribute("totalPageCount", total);
 		model.addAttribute("baseUrl", baseUrl);
 		model.addAttribute("guests", pages);
-		model.addAttribute("guests", pages);
+		model.addAttribute("extra", extra);
+		model.addAttribute("checkLast", checkLast);
 		model.addAttribute("searchUrl", searchUrl);
 		model.addAttribute("searchText", text);
 		return "guest";

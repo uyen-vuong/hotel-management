@@ -17,4 +17,17 @@ public interface GuestRepository extends JpaRepository<Guest, Long>{
 	
 	@Query(CustomQuery.GUEST_SEARCH)
 	List<Guest> searchGuests(@Param("text") String text);
+	
+	@Query(CustomQuery.GUEST_SEARCH_JUST_INSERTED)
+	Guest searchGuestJustInsertd(
+			@Param("idCard") String idCard,
+			@Param("passport") String passport,
+			@Param("phoneNumber") String phoneNumber);
+	
+	@Query(value = CustomQuery.GUEST_CHECK_EXIST_DATABASE,nativeQuery = true)
+	Integer checkExistGuest(
+			@Param("idCard") String idCard,
+			@Param("phoneNumber") String phoneNumber,
+			@Param("passport") String passport
+			);
 }
