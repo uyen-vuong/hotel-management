@@ -171,6 +171,7 @@ create table section(
 );
 create table employee(
 	employee_id bigint auto_increment,
+    employee_number nvarchar(7),
     employee_name varchar(125),
     birth varchar(25),
     gender nvarchar(10),

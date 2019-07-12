@@ -3,10 +3,12 @@ package com.devpro.spring.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.devpro.spring.model.Chamber;
 import com.devpro.spring.repository.ChamberRepository;
 
+@Service
 public class ChamberServiceImpl implements ChamberService{
 
 	@Autowired
