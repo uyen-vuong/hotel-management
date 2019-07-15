@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -16,12 +15,6 @@ public class ChamberController {
 
 	@Autowired
 	private ChamberService chamberService;
-	
-	@GetMapping("/chambers")
-	public String loadListChambers(Model model){
-		model.addAttribute("chambers", chamberService.findAllChamber());
-		return "chamber";
-	}
 	
 	@GetMapping("/update-chamber-info")
 	public String updateChamber(@Valid Chamber chamber, BindingResult result) {

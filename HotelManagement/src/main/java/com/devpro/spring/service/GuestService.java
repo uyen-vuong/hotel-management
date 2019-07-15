@@ -18,5 +18,9 @@ public interface GuestService {
 	void addGuestInfo(Guest guest);
 	
 	void editGuestInfo(Guest guest);
+	
+	Guest searchGuestJustInsertd(String passport,String idCard,String phoneNumber);
+	
+	Integer checkExistGuest(String idCard,String phoneNumber,String passport);
 
 }
