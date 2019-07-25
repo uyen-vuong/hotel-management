@@ -1,6 +1,9 @@
 package com.devpro.spring.model;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,18 +11,51 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "rental")
-public class Rental {
+public class Rental implements Serializable{
 	
-	public Rental() {
-		super();
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "rental_id")
+	private Long rentalId;
+	
+	@Column(name = "discount")
+	private String discount;
+	
+	@Column(name = "check_in_date")
+	private Date checkInDate;
+	
+	@Column(name = "check_out_date")
+	private Date checkOutDate;
+	
+	@Column(name = "paid")
+	private String paid;
+	
+	@Column(name = "note")
+	private String note;
+	
+	@ManyToOne
+	@JoinColumn(name = "guest_id",nullable = false)
+	private Guest guest;
+	
+    @ManyToMany
+    @JoinTable(name = "rental_chamber",
+        joinColumns = @JoinColumn(name = "rental_id"),
+        inverseJoinColumns = @JoinColumn(name = "chamber_id"))
+    private Set<Chamber> chambers;
+	
 	public Long getRentalId() {
 		return rentalId;
 	}
@@ -35,20 +71,20 @@ public class Rental {
 	public void setDiscount(String discount) {
 		this.discount = discount;
 	}
-
-	public String getCheckInDate() {
+	
+	public Date getCheckInDate() {
 		return checkInDate;
 	}
 
-	public void setCheckInDate(String checkInDate) {
+	public void setCheckInDate(Date checkInDate) {
 		this.checkInDate = checkInDate;
 	}
 
-	public String getCheckOutDate() {
+	public Date getCheckOutDate() {
 		return checkOutDate;
 	}
 
-	public void setCheckOutDate(String checkOutDate) {
+	public void setCheckOutDate(Date checkOutDate) {
 		this.checkOutDate = checkOutDate;
 	}
 
@@ -76,44 +112,46 @@ public class Rental {
 		this.guest = guest;
 	}
 
-	public Chamber getChamber() {
-		return chamber;
+	public Set<Chamber> getChambers() {
+		return chambers;
 	}
 
-	public void setChamber(Chamber chamber) {
-		this.chamber = chamber;
+	public void setChambers(Set<Chamber> chambers) {
+		this.chambers = chambers;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "rental_id")
-	private Long rentalId;
-	
-	@Column(name = "discount")
-	private String discount;
-	
-	@Column(name = "check_in_date")
-	private String checkInDate;
-	
-	@Column(name = "check_out_date")
-	private String checkOutDate;
-	
-	@Column(name = "paid")
-	private String paid;
-	
-	@Column(name = "note")
-	private String note;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "guest_id",referencedColumnName = "guest_id")
-	private Guest guest;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "chamber_id",referencedColumnName = "chamber_id")
-	private Chamber chamber;
-	
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="payment_id", nullable=false)
     private Payment payment;
+	
+	@OneToMany(mappedBy = "rental")
+	private Set<OrderFood> orderFoods;
+
+	public Set<OrderFood> getOrderFoods() {
+		return orderFoods;
+	}
+
+	public void setOrderFoods(Set<OrderFood> orderFoods) {
+		this.orderFoods = orderFoods;
+	}
+	
+	@OneToMany(mappedBy = "rental")
+	private Set<ServiceBill> serviceBills;
+
+	public Set<ServiceBill> getServiceBills() {
+		return serviceBills;
+	}
+
+	public void setServiceBills(Set<ServiceBill> serviceBills) {
+		this.serviceBills = serviceBills;
+	}
 	
 }

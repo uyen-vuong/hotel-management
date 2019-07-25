@@ -34,4 +34,20 @@ public interface ChamberRepository extends JpaRepository<Chamber, Long>{
 	void updateChamberIsEmpty(
 			@Param("isEmpty") String isEmpty,
 			@Param("chamberId") Long chamberId);
+	
+	@Query(CustomQuery.CHAMBER_SEARCH)
+	Page<Chamber> searchChamber(Pageable pageable,@Param("text") String text);
+	
+	@Transactional
+	@Modifying
+	@Query(CustomQuery.CHAMBER_UPDATE_INFO)
+	void updateChamberInfo(
+			@Param("chamberNumber") String chamberNumber,
+			@Param("chamberType") String chamberType,
+			@Param("priceDay") String priceDay,
+			@Param("chamberArea") String chamberArea,
+			@Param("note") String note,
+			@Param("isVip") String isVip,
+			@Param("chamberId") Long chamberId
+			);
 }

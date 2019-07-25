@@ -9,7 +9,7 @@ public interface ChamberService {
 
 	Chamber findChamber(Long id);
 	
-	Page<Chamber> findAllChamber(Pageable pageable);
+	Page<Chamber> searchChamber(Pageable pageable,String text);
 	
 	Page<Chamber> searchChamberWithPrice1(Pageable pageable,String type,String vip);
 	
@@ -17,11 +17,13 @@ public interface ChamberService {
 	
 	Page<Chamber> searchChamberWithPrice3(Pageable pageable,String type,String vip);
 	
-	void addChamberInfo(Chamber chamber);
+	void addChamber(String number, String type, String price, String area, String note, String fvip);
 	
-	void deleteChamberInfo(Chamber chamber);
+	void deleteChamber(Long chamberId);
 	
-	void editChamberInfo(Chamber chamber);
+	void updateCheckIn(Long id); // update lai trang thai phong khi check in
 	
-	void updateCheckIn(Long id);
+	void updateChamberInfo(String number, String type, String price, String area, String note, String vip,Long id);
+	
+	
 }

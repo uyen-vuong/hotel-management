@@ -70,16 +70,11 @@ public class GuestController {
 			@RequestParam(name = "name") String guestName, @RequestParam(name = "card") String idCard,
 			@RequestParam(name = "birth") String birth, @RequestParam(name = "passport") String passport,
 			@RequestParam(name = "address") String address, @RequestParam(name = "nationality") String nationality,
-			@RequestParam(name = "phone") String phoneNumber,
-			@RequestParam(name = "vip", required = false, defaultValue = "off") String vip,
+			@RequestParam(name = "phone") String phoneNumber,@RequestParam(name = "email") String email,
 			@RequestParam(name = "page") int page,
 			@RequestParam(name = "text") String text) {
 
-		String isVip = "No";
-		if (vip.equalsIgnoreCase("on"))
-			isVip = "Yes";
-		Guest guest = new Guest(guestId, guestName, birth, idCard, passport, address, nationality, phoneNumber, isVip);
-		guestService.editGuestInfo(guest);
+		guestService.updateNomal(guestName, birth, idCard, passport, address, nationality, phoneNumber, email, guestId);
 		return "redirect:/guests?page="+page+"&search-text="+text;
 	}
 

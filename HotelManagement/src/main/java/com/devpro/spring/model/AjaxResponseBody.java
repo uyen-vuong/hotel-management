@@ -20,4 +20,6 @@ public class AjaxResponseBody {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
+	// lop nay co the them 1 thuoc tinh de bieu thi du lieu khi tra ve
 }

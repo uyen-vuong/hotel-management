@@ -19,8 +19,16 @@ public interface GuestService {
 	
 	void editGuestInfo(Guest guest);
 	
-	Guest searchGuestJustInsertd(String passport,String idCard,String phoneNumber);
+	Guest searchGuestWithCart(String idCard);
 	
-	Integer checkExistGuest(String idCard,String phoneNumber,String passport);
+	Integer checkExistGuest(String idCard);
+	
+	void updateComplete(String passport,String address,String phoneNumber,
+			String email,String isVip,String idCard);
+	
+	void updateNomal(String guestName,String birth,String idCard,String passport,
+			String address,String nationality,String phoneNumber,String email,Long guestId);
+	
+	Guest getGuestInfoByChamberNumber(String chamberNumber);
 
 }

@@ -48,15 +48,36 @@ public class GuestServiceImpl implements GuestService{
 	}
 
 	@Override
-	public Guest searchGuestJustInsertd(String passport, String idCard, String phoneNumber) {
+	public Guest searchGuestWithCart(String idCard) {
 		// TODO Auto-generated method stub
-		return guestRepository.searchGuestJustInsertd(idCard, passport, phoneNumber);
+		return guestRepository.searchGuestWithCart(idCard);
 	}
 
 	@Override
-	public Integer checkExistGuest(String idCard, String phoneNumber, String passport) {
+	public Integer checkExistGuest(String idCard) {
 		// TODO Auto-generated method stub
-		return guestRepository.checkExistGuest(idCard, phoneNumber, passport);
+		return guestRepository.checkExistGuest(idCard);
+	}
+	
+	@Override
+	public void updateComplete(String passport, String address, String phoneNumber, String email, String isVip,
+			String idCard) {
+		
+		guestRepository.updateComplete(passport, address, phoneNumber, email, "true", isVip, idCard);
+		// mac dinh nhu update check in ma khach da co trong csdl thi familiar = true
+	}
+
+	@Override
+	public void updateNomal(String guestName, String birth, String idCard, String passport, String address,
+			String nationality, String phoneNumber, String email, Long guestId) {
+		
+		guestRepository.updateNomal(guestName, birth, idCard, passport, address, nationality, phoneNumber, email, guestId);
+	}
+
+	@Override
+	public Guest getGuestInfoByChamberNumber(String chamberNumber) {
+		// TODO Auto-generated method stub
+		return guestRepository.getGuestInfoByChamberNumber(chamberNumber);
 	}
 
 

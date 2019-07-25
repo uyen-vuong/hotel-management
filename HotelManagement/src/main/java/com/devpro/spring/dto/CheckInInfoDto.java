@@ -10,24 +10,19 @@ public class CheckInInfoDto {
 	private String nationality;
 	private String phone;
 	private String note;
+	private String email;
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	private Long chamberId;
 	
 	public CheckInInfoDto() {
 		super();
 	}
-	public CheckInInfoDto(String name, String idCard, String birth, String passport, String address, String nationality,
-			String phone, String note, Long chamberId) {
-		super();
-		this.name = name;
-		this.idCard = idCard;
-		this.birth = birth;
-		this.passport = passport;
-		this.address = address;
-		this.nationality = nationality;
-		this.phone = phone;
-		this.note = note;
-		this.chamberId = chamberId;
-	}
+	
 	public String getName() {
 		return name;
 	}

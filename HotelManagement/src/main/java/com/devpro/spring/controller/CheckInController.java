@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devpro.spring.model.Chamber;
 import com.devpro.spring.service.ChamberService;
@@ -77,24 +76,26 @@ public class CheckInController {
 		long totalElement = pages.getTotalElements();
 		long begin = 1;
 		long end = 1;
-		if (current > 5 && total > 6) {
+		if(current>5 && total>6) {
 			begin = Math.max(1, current);
 		}
-		if (total != 0) {
+		if(total!=0) {
 			end = Math.min(begin + 4, total);
 		}
-		if (current == total - 5) {
+		if(current==total-5) {
 			end = total;
 		}
 		boolean extra = false;
 		boolean checkLast = false;
-		if (total > 5 && current < total - 5) {
+		if(total >5 && current<total-5) {
 			extra = true;
 		}
-		if (total > 6 && current < total - 5) {
+		if(total >6 && current<total-5) {
 			checkLast = true;
 		}
 		String baseUrl = "/check-in?page=";
+		String filterUrl = "&p="+price+"&t="+type+"&v="+vip;
+
 
 		model.addAttribute("checkPrice1", checkPrice1);
 		model.addAttribute("checkPrice2", checkPrice2);
@@ -111,19 +112,14 @@ public class CheckInController {
 		model.addAttribute("beginIndex", begin);
 		model.addAttribute("endIndex", end);
 		model.addAttribute("currentIndex", current);
-		model.addAttribute("totalElement", totalElement);
 		model.addAttribute("totalPageCount", total);
-		model.addAttribute("baseUrl", baseUrl);
+		model.addAttribute("totalElement", totalElement);
 		model.addAttribute("chambers", pages);
+		model.addAttribute("baseUrl", baseUrl);
+		model.addAttribute("filterUrl", filterUrl);
 		model.addAttribute("extra", extra);
 		model.addAttribute("checkLast", checkLast);
 		return "check-in";
-	}
-
-	@GetMapping("/find-chamber")
-	@ResponseBody
-	public Chamber findChamber(Long id) {
-		return chamberService.findChamber(id);
 	}
 
 }

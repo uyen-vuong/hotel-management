@@ -1,15 +1,20 @@
 package com.devpro.spring.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "chamber")
+@JsonIgnoreProperties("rentals")
 public class Chamber {
 
 	@Id
@@ -17,7 +22,7 @@ public class Chamber {
 	@Column(name = "chamber_id")
 	private Long chamberId;
 	
-	@Column(name = "chamber_number")
+	@Column(name = "chamber_number",unique = true)
 	private String chamberNumber;
 	
 	@Column(name = "chamber_type")
@@ -35,17 +40,28 @@ public class Chamber {
 	@Column(name = "note")
 	private String note;
 	
+	public Chamber(String chamberNumber, String chamberType, String isVip, String priceDay, String chamberArea,
+			String note, String isEmpty) {
+		super();
+		this.chamberNumber = chamberNumber;
+		this.chamberType = chamberType;
+		this.isVip = isVip;
+		this.priceDay = priceDay;
+		this.chamberArea = chamberArea;
+		this.note = note;
+		this.isEmpty = isEmpty;
+	}
+
 	@Column(name = "is_empty")
 	private String isEmpty;
 	
-	@OneToOne(mappedBy = "chamber")
-	private Rental rental;
+	@ManyToMany(mappedBy = "chambers")
+	private Set<Rental> rentals;
 
 	public Chamber() {
 		super();
 	}
 	
-
 	public Long getChamberId() {
 		return chamberId;
 	}
@@ -106,30 +122,13 @@ public class Chamber {
 		return isEmpty;
 	}
 
-	public Rental getRental() {
-		return rental;
+	public Set<Rental> getRentals() {
+		return rentals;
 	}
 
-
-	public void setRental(Rental rental) {
-		this.rental = rental;
+	public void setRentals(Set<Rental> rentals) {
+		this.rentals = rentals;
 	}
-
-
-	public Chamber(Long chamberId, String chamberNumber, String chamberType, String isVip, String priceDay,
-			String chamberArea, String note, String isEmpty, Rental rental) {
-		super();
-		this.chamberId = chamberId;
-		this.chamberNumber = chamberNumber;
-		this.chamberType = chamberType;
-		this.isVip = isVip;
-		this.priceDay = priceDay;
-		this.chamberArea = chamberArea;
-		this.note = note;
-		this.isEmpty = isEmpty;
-		this.rental = rental;
-	}
-
 
 	public void setIsEmpty(String isEmpty) {
 		this.isEmpty = isEmpty;

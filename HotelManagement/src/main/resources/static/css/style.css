@@ -47,6 +47,11 @@ img {
 .form-check {
 	margin: 5px 0;
 }
+
 .chamber-content {
 	height: 800px;
+}
+
+.required-field{
+	color: red;
 }
