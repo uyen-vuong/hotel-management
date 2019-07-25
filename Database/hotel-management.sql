@@ -152,7 +152,11 @@ create table section(
 );
 create table employee(
 	employee_id bigint auto_increment,
+<<<<<<< HEAD
+    employee_number nvarchar(7),
+=======
     employee_number varchar(25),
+>>>>>>> 2f0e9b9541a642c29082fa35611a4209892a63e8
     employee_name varchar(125),
     birth varchar(25),
     gender nvarchar(10),

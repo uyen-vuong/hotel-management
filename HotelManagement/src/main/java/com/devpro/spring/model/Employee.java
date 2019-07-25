@@ -19,6 +19,9 @@ public class Employee {
 	@Column(name = "employee_id", nullable = false)
 	private Long employeeId;
 	
+	@Column(name = "employee_number", nullable = false)
+	private String employeeNumber;
+	
 	@Column(name = "employee_name", nullable = false)
 	private String employeeName;
 	
@@ -54,28 +57,20 @@ public class Employee {
 		super();
 	}
 
-	public Employee(Long employeeId, String employeeName, String birth, String gender, String address,
-			String employeePosition, String email, String phoneNumber, String salary, Long managerId, Section section) {
-		super();
-		this.employeeId = employeeId;
-		this.employeeName = employeeName;
-		this.birth = birth;
-		this.gender = gender;
-		this.address = address;
-		this.employeePosition = employeePosition;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.salary = salary;
-		this.managerId = managerId;
-		this.section = section;
-	}
-
 	public Long getEmployeeId() {
 		return employeeId;
 	}
 
 	public void setEmployeeId(Long employeeId) {
 		this.employeeId = employeeId;
+	}
+
+	public String getEmployeeNumber() {
+		return employeeNumber;
+	}
+
+	public void setEmployeeNumber(String employeeNumber) {
+		this.employeeNumber = employeeNumber;
 	}
 
 	public String getEmployeeName() {
@@ -158,11 +153,31 @@ public class Employee {
 		this.section = section;
 	}
 
+	public Employee(Long employeeId, String employeeNumber, String employeeName, String birth, String gender,
+			String address, String employeePosition, String email, String phoneNumber, String salary, Long managerId,
+			Section section) {
+		super();
+		this.employeeId = employeeId;
+		this.employeeNumber = employeeNumber;
+		this.employeeName = employeeName;
+		this.birth = birth;
+		this.gender = gender;
+		this.address = address;
+		this.employeePosition = employeePosition;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.salary = salary;
+		this.managerId = managerId;
+		this.section = section;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Employee [employeeId=");
 		builder.append(employeeId);
+		builder.append(", employeeNumber=");
+		builder.append(employeeNumber);
 		builder.append(", employeeName=");
 		builder.append(employeeName);
 		builder.append(", birth=");
@@ -186,8 +201,5 @@ public class Employee {
 		builder.append("]");
 		return builder.toString();
 	}
-
-	
-	
 	
 }

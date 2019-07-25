@@ -3,6 +3,8 @@ package com.devpro.spring.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.devpro.spring.model.Employee;
@@ -21,12 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public List<Employee> findAllEmployee() {
-		// TODO Auto-generated method stub
-		return employeeRepository.findAll();
-	}
-
-	@Override
 	public void addEmployeeInfo(Employee employee) {
 		// TODO Auto-generated method stub
 		employeeRepository.save(employee);
@@ -36,6 +32,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public void editEmployeeInfo(Employee employee) {
 		// TODO Auto-generated method stub
 		employeeRepository.save(employee);
+	}
+
+	@Override
+	public Page<Employee> searchEmployees(Pageable pageable, String text) {
+		// TODO Auto-generated method stub
+		return employeeRepository.searchEmployees(pageable,"%"+text.trim()+"%");
+	}
+
+	@Override
+	public List<Employee> searchEmployees(String text) {
+		// TODO Auto-generated method stub
+		return employeeRepository.searchEmployees("%"+text.trim()+"%");
 	}
 	
 	
