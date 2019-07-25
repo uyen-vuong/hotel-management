@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{starter::head('Guest Infomation')}">
 <head th:replace="~{starter::head('Thông tin khách hàng')}">
 <meta charset="utf-8">
 </head>
@@ -215,7 +214,7 @@
 
 			$('.eBtn').click(function(e) {
 				e.preventDefault();
-				//ngăn trình duyệt không xử lý sự kiện click theo như mặc định
+				//ngÄƒn trÃ¬nh duyá»‡t khÃ´ng xá»­ lÃ½ sá»± kiá»‡n click theo nhÆ° máº·c Ä‘á»‹nh
 				var href = $(this).attr('href');
 
 				$.get(href, function(guests, status) {
