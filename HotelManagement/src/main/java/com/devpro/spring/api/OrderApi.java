@@ -34,7 +34,7 @@ public class OrderApi {
 	@Autowired
 	private RentalService rentalService;
 
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = Exception.class) // update data
 	@PostMapping("/order/order-food")
 	public ResponseEntity<?> addOrderFood(@Valid @RequestBody OrderFoodDto order, Errors error) {
 

@@ -152,11 +152,7 @@ create table section(
 );
 create table employee(
 	employee_id bigint auto_increment,
-<<<<<<< HEAD
-    employee_number nvarchar(7),
-=======
     employee_number varchar(25),
->>>>>>> 2f0e9b9541a642c29082fa35611a4209892a63e8
     employee_name varchar(125),
     birth varchar(25),
     gender nvarchar(10),
@@ -303,6 +299,8 @@ select datediff(now(),check_in_date) from rental r join rental_chamber rc on rc.
 on c.chamber_id = rc.chamber_id where c.chamber_number = 101 and r.paid = 'false'; -- Tinh so ngay
 
 select r.rental_id,r.check_in_date,r.note,g.guest_name,g.birth,g.id_card,g.passport,g.address,g.nationality,g.phone_number,g.email,c.chamber_type,c.price_day,c.is_vip from rental r join guest g on g.guest_id = r.guest_id join rental_chamber rc on rc.rental_id =  r.rental_id join chamber c on c.chamber_id = rc.chamber_id where c.chamber_number = 101 and r.paid = 'false'
+
+;select sum(s.total_price) as total from rental r join service_bill s on r.rental_id = s.rental_id join rental_chamber rc on rc.rental_id =  r.rental_id join chamber c on c.chamber_id = rc.chamber_id where c.chamber_number = 101  and r.paid = 'false'
 
  
  
