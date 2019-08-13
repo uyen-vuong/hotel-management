@@ -23,7 +23,7 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@GetMapping("/employees")
+	@GetMapping("/employee")
 	public String loadListEmployees(Model model,
 			@RequestParam(name = "page", defaultValue = "0") Integer page,
 			@RequestParam(name = "search-text", defaultValue = "") String text){
@@ -37,7 +37,7 @@ public class EmployeeController {
 		if(total != 0) {
 			end = Math.min(begin + 5, total);
 		}
-		String baseUrl = "/employees?page=";
+		String baseUrl = "/employee?page=";
 		String searchUrl = "&search-text="+text;
 		
 		model.addAttribute("beginIndex", begin);
@@ -59,14 +59,13 @@ public class EmployeeController {
 			@RequestParam(name = "birth") String birth,
 			@RequestParam(name = "gender") String gender,
 			@RequestParam(name = "address") String address,
-			@RequestParam(name = "position") String employeePosition,
 			@RequestParam(name = "email") String email,
 			@RequestParam(name = "phone") String phoneNumber,
 			@RequestParam(name = "salary") String salary,
-			@RequestParam(name = "managerId") Long managerId,
+			@RequestParam(name = "managerNumber") String managerNumber,
 			@RequestParam(name = "page") int page,
 			@RequestParam(name = "text") String text) {
-		Employee employee = new Employee(employeeId, employeeNumber, employeeName, birth, gender, address, employeePosition, email, phoneNumber, salary, managerId, null);
+		Employee employee = new Employee(employeeId, employeeNumber, employeeName, birth, gender, address, email, phoneNumber, salary, managerNumber, null);
 		employeeService.editEmployeeInfo(employee);
 		return "redirect:/employees?page="+page+"&search-text="+text;
 	}

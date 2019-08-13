@@ -10,8 +10,6 @@ import org.springframework.data.repository.query.Param;
 
 import com.devpro.spring.model.Employee;
 
-
-
 public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 
 	@Query(CustomQuery.EMPLOYEE_SEARCH)

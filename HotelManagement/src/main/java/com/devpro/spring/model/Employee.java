@@ -34,9 +34,6 @@ public class Employee {
 	@Column(name = "address")
 	private String address;
 	
-	@Column(name = "employee_position")
-	private String employeePosition;
-	
 	@Column(name = "email")
 	private String email;
 	
@@ -46,9 +43,17 @@ public class Employee {
 	@Column(name = "salary")
 	private String salary;
 	
-	@Column(name = "manager_id")
-	private Long managerId;
+	@Column(name = "manager_number")
+	private String managerNumber;
 	
+	public String getManagerNumber() {
+		return managerNumber;
+	}
+
+	public void setManagerNumber(String managerNumber) {
+		this.managerNumber = managerNumber;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "section_id", nullable = false)
 	private Section section;
@@ -105,14 +110,6 @@ public class Employee {
 		this.address = address;
 	}
 
-	public String getEmployeePosition() {
-		return employeePosition;
-	}
-
-	public void setEmployeePosition(String employeePosition) {
-		this.employeePosition = employeePosition;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -137,14 +134,6 @@ public class Employee {
 		this.salary = salary;
 	}
 
-	public Long getManagerId() {
-		return managerId;
-	}
-
-	public void setManagerId(Long managerId) {
-		this.managerId = managerId;
-	}
-
 	public Section getSection() {
 		return section;
 	}
@@ -154,7 +143,7 @@ public class Employee {
 	}
 
 	public Employee(Long employeeId, String employeeNumber, String employeeName, String birth, String gender,
-			String address, String employeePosition, String email, String phoneNumber, String salary, Long managerId,
+			String address, String email, String phoneNumber, String salary, String managerNumber,
 			Section section) {
 		super();
 		this.employeeId = employeeId;
@@ -163,11 +152,10 @@ public class Employee {
 		this.birth = birth;
 		this.gender = gender;
 		this.address = address;
-		this.employeePosition = employeePosition;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.salary = salary;
-		this.managerId = managerId;
+		this.managerNumber = managerNumber;
 		this.section = section;
 	}
 
@@ -186,16 +174,14 @@ public class Employee {
 		builder.append(gender);
 		builder.append(", address=");
 		builder.append(address);
-		builder.append(", employeePosition=");
-		builder.append(employeePosition);
 		builder.append(", email=");
 		builder.append(email);
 		builder.append(", phoneNumber=");
 		builder.append(phoneNumber);
 		builder.append(", salary=");
 		builder.append(salary);
-		builder.append(", managerId=");
-		builder.append(managerId);
+		builder.append(", managerNumber=");
+		builder.append(managerNumber);
 		builder.append(", section=");
 		builder.append(section);
 		builder.append("]");

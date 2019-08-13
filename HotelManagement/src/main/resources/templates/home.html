@@ -34,17 +34,19 @@
 
 			<!-- Main Nav -->
 			<nav class="main_nav">
-				<ul class="d-flex flex-row align-items-center justify-content-start">
-					<li class="active"><a th:if="${#request.userPrincipal != null}" href="#">Trang chủ</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/check-in}">Check-in</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" href="#">Check-out</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" href="#">Đặt món</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/guests}">Khách hàng</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/employees}">Nhân viên</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" href="#">Dịch vụ khác</a></li>
-					<li><a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Đăng xuất</a></li>
-				</ul>
-			</nav>
+					<ul
+						class="d-flex flex-row align-items-center justify-content-start">
+						<li th:class="${check==0}? 'active': ''"><a th:href="@{/}">Trang chủ</a></li>
+						<li th:class="${check==1}? 'active': ''"><a th:href="@{/check-in}">Đặt phòng</a></li>
+						<li th:class="${check==2}? 'active': ''"><a th:href="@{/check-out}">Trả phòng</a></li>
+						<li th:class="${check==3}? 'active': ''"><a th:href="@{/order}">Dịch vụ</a></li>
+						<li th:class="${check==4}? 'active': ''"><a th:href="@{/guests}">Khách hàng</a></li>
+						<li th:class="${check==5}? 'active': ''"><a th:href="@{/chamber}">Quản lý phòng</a></li>
+						<li th:class="${check==6}? 'active': ''"><a th:href="@{/service}">Quản lý dịch vụ</a></li>
+						<li th:class="${check==7}? 'active': ''"><a th:href="@{/employee}">Nhân viên</a></li>
+						<li><a th:href="@{/logout}">Đăng xuất</a></li>
+					</ul>
+				</nav>
 		</div>
 			<!-- Social -->
 		
