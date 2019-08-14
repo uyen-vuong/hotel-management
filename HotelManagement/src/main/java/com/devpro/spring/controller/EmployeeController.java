@@ -31,25 +31,27 @@ public class EmployeeController {
 			@RequestParam(name = "search-text", defaultValue = "") String text){
 		Pageable pageable = PageRequest.of(page, 10);
 		Page<Employee> pages = employeeService.searchEmployees(pageable, text);
+
 		int current = pages.getNumber() + 1;
 		long total = pages.getTotalPages();
+		long totalElement = pages.getTotalElements();
 		long begin = 1;
 		long end = 1;
-		if(current>5 && total>6) {
+		if (current > 5 && total > 6) {
 			begin = Math.max(1, current);
 		}
-		if(total!=0) {
+		if (total != 0) {
 			end = Math.min(begin + 4, total);
 		}
-		if(current==total-5) {
+		if (current == total - 5) {
 			end = total;
 		}
 		boolean extra = false;
 		boolean checkLast = false;
-		if(total >5 && current<total-5) {
+		if (total > 5 && current < total - 5) {
 			extra = true;
 		}
-		if(total >6 && current<total-5) {
+		if (total > 6 && current < total - 5) {
 			checkLast = true;
 		}
 		String baseUrl = "/employee?page=";
@@ -60,6 +62,7 @@ public class EmployeeController {
 		model.addAttribute("endIndex", end);
 		model.addAttribute("currentIndex", current);
 		model.addAttribute("totalPageCount", total);
+		model.addAttribute("totalElement", totalElement);
 		model.addAttribute("baseUrl", baseUrl);
 		model.addAttribute("employees", pages);
 		model.addAttribute("extra", extra);
@@ -83,8 +86,11 @@ public class EmployeeController {
 			@RequestParam(name = "manager") String managerNumber,
 			@RequestParam(name = "page") int page,
 			@RequestParam(name = "text") String text) {
-		
-		employeeService.editEmployeeInfo(employeeNumber, employeeName, birth, gender, address, email, phoneNumber, salary, managerNumber, employeeId);
+			if(employeeId == -1) {
+				employeeService.addEmployee(employeeNumber, employeeName, birth, gender, address, email, phoneNumber, salary, managerNumber);
+			} else {
+				employeeService.editEmployeeInfo(employeeNumber, employeeName, birth, gender, address, email, phoneNumber, salary, managerNumber, employeeId);
+			}
 		return "redirect:/employee?page="+page+"&search-text="+text;
 	}
 	

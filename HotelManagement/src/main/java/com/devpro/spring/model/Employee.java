@@ -1,5 +1,7 @@
 package com.devpro.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -54,6 +56,7 @@ public class Employee {
 		this.managerNumber = managerNumber;
 	}
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "section_id", nullable = false)
 	private Section section;
@@ -142,11 +145,9 @@ public class Employee {
 		this.section = section;
 	}
 
-	public Employee(Long employeeId, String employeeNumber, String employeeName, String birth, String gender,
-			String address, String email, String phoneNumber, String salary, String managerNumber,
-			Section section) {
+	public Employee( String employeeNumber, String employeeName, String birth, String gender,
+			String address, String email, String phoneNumber, String salary, String managerNumber) {
 		super();
-		this.employeeId = employeeId;
 		this.employeeNumber = employeeNumber;
 		this.employeeName = employeeName;
 		this.birth = birth;
@@ -156,7 +157,6 @@ public class Employee {
 		this.phoneNumber = phoneNumber;
 		this.salary = salary;
 		this.managerNumber = managerNumber;
-		this.section = section;
 	}
 
 	@Override

@@ -18,9 +18,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 	@Query(CustomQuery.EMPLOYEE_SEARCH)
 	Page<Employee> searchEmployees(Pageable pageable, @Param("text") String text);
 
-	@Query(CustomQuery.EMPLOYEE_SEARCH)
-	List<Employee> searchEmployees(@Param("text") String text);
-	
 	@Transactional
 	@Modifying
 	@Query(CustomQuery.EMPLOYEE_UPDATE)

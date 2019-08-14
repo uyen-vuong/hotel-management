@@ -1,7 +1,5 @@
 package com.devpro.spring.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,16 +27,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
+	public void addEmployee(String employeeNumber, String employeeName, String birth, String gender, String address, String email, String phoneNumber, String salary, String managerNumber) {
+		Employee employee = new Employee(employeeNumber, employeeName, birth, gender, address, email, phoneNumber, salary, managerNumber);
+		employeeRepository.save(employee);
+	}
+
+
+	@Override
 	public Page<Employee> searchEmployees(Pageable pageable, String text) {
 		// TODO Auto-generated method stub
 		return employeeRepository.searchEmployees(pageable,"%"+text.trim()+"%");
 	}
 
-	@Override
-	public List<Employee> searchEmployees(String text) {
-		// TODO Auto-generated method stub
-		return employeeRepository.searchEmployees("%"+text.trim()+"%");
-	}
-	
-	
+
 }
