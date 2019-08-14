@@ -24,7 +24,7 @@ public class MainController {
 	public String login(Model model) {
 		return "login";
 	}
-	
+
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String accessDenied(Model model, Principal principal) {
 		if(principal != null) {
@@ -34,6 +34,6 @@ public class MainController {
 			String message = "Xin chào " + principal.getName() + ". Bạn không có quyền truy cập vào trang web này";
 			model.addAttribute("message", message);
 		}
-		return "403";
+		return "403Page";
 	}
 }

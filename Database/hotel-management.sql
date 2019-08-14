@@ -157,34 +157,35 @@ create table employee(
     birth varchar(25),
     gender nvarchar(10),
     address nvarchar(125),
-    employee_position nvarchar(25),
     email varchar(50),
     phone_number varchar(25),
     salary varchar(25),
-    manager_id bigint,
+    manager_number bigint,
     section_id bigint,
     constraint employee_pk primary key (employee_id),
-    constraint employee_fk foreign key (section_id) references section(section_id)
+    constraint employee_fk2 foreign key (section_id) references section(section_id)
 );
-create table work_(
-	work_id bigint auto_increment,
-    work_name nvarchar(125),
-    content nvarchar(255),
-    constraint work_pk primary key (work_id)
-);
-create table employee_work(
+
+create table employee_schedule(
 	employee_work_id bigint auto_increment,
     start_date varchar(25),
-    quality varchar(50),
-    bonus varchar(10),
-    work_id bigint,
+    work_name varchar(50),
+    content varchar(10),
+    note nvarchar(200),
     employee_id bigint,
     constraint employee_work_pk primary key (employee_work_id),
-    constraint employee_work_fk foreign key (work_id) references work_(work_id),
     constraint employee_work_fk2 foreign key (employee_id) references employee(employee_id)
 );
-insert into App_User (USER_ID, USER_NAME, ENCRYTED_PASSWORD, ENABLED) values (2, 'user', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1);
-insert into App_User (USER_ID, USER_NAME, ENCRYTED_PASSWORD, ENABLED) values (3, 'admin', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1);
+insert into hotel_management.App_User (USER_ID, USER_NAME, ENCRYTED_PASSWORD, ENABLED) values (1, 'admin', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1);
+insert into hotel_management.App_User (USER_ID, USER_NAME, ENCRYTED_PASSWORD, ENABLED) values (2, 'user', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1);
+
+insert into hotel_management.app_role(ROLE_ID, ROLE_NAME) values (1, 'ROLE_ADMIN');
+insert into hotel_management.app_role(ROLE_ID, ROLE_NAME) values (2, 'ROLE_USER');
+
+insert into hotel_management.user_role(USER_ID, ROLE_ID) values (1, 1);
+insert into hotel_management.user_role(USER_ID, ROLE_ID) values (1, 2);
+insert into hotel_management.user_role(USER_ID, ROLE_ID) values (2, 2);
+
 insert into hotel_management.guest(guest_name,birth,id_card,passport,address,nationality,phone_number,is_familiar,is_vip) values
 ('Nguyến Văn An','1998-10-02','123456789102',null,'Hà Nội','Việt Nam','0123456789','false','yes'),
 ('Nguyến Văn Nam','1998-10-02','123456789102','A01236','Viet Nam dsdad','Việt Nam','0123456789','false','no'),
@@ -254,14 +255,16 @@ join chamber c on c.chamber_id = rc.chamber_id where r.paid = 'false';
 select * from order_food;
 select * from service_bill;
 
-select * from service;
-insert into service(service_name,price,unit,service_description,note) 
+
+SELECT * FROM hotel_management.rental;
+insert into hotel_management.service(service_name,price,unit,service_description,note) 
 values('Quầy bar','0','','Nơi khách hàng lui tới để thư giãn, thưởng thức các loại rượu, Cocktail và trò chuyện cùng nhau','miễn phí'),
 ('Dịch vụ Spa','2500000','giờ','Giúp khách thư giãn, nghỉ ngơi sau một ngày hoạt động ngoài trời',''),
 ('Fitness center','100000','ngày','Tập thể dục tăng cường sức khỏe hoặc tập thể hình để có một vóc dáng hoàn hảo của mọi người ngày càng tăng',''),
 ('Sân golf và sân tennis','200000','giờ','Khách hàng là doanh nhân thường rất thích đánh golf hoặc tennis',''),
 ('Hội họp, văn phòng','0','','Dịch vụ này nhằm mục đích phục vụ tốt nhu cầu của đối tượng khách là các doanh nghiệp, bao gồm các tiện ích văn phòng như: Máy tính kết nối Internet, máy in, máy photocopy…','Miễn phí'),
 ('Dịch vụ giặt ủi quần áo','0','','những khách lưu trú trong thời gian dài thì dịch vụ giặt áo quần áo là vô cùng cần thiết, mỗi loại trang phục sẽ có một đơn giá tính phí khác nhau','Tính phí theo loại quần áo');
+SELECT * FROM hotel_management.service;
 
 select f.food_item_id,f.food_item_name,f.food_item_description,f.price,f.image,c.category_name from food_item f join category c on f.category_id = c.category_id;
 select * from rental;
@@ -298,12 +301,58 @@ join rental_chamber rc on rc.rental_id =  r.rental_id join chamber c
 select datediff(now(),check_in_date) from rental r join rental_chamber rc on rc.rental_id =  r.rental_id join chamber c
 on c.chamber_id = rc.chamber_id where c.chamber_number = 101 and r.paid = 'false'; -- Tinh so ngay
 
-select r.rental_id,r.check_in_date,r.note,g.guest_name,g.birth,g.id_card,g.passport,g.address,g.nationality,g.phone_number,g.email,c.chamber_type,c.price_day,c.is_vip from rental r join guest g on g.guest_id = r.guest_id join rental_chamber rc on rc.rental_id =  r.rental_id join chamber c on c.chamber_id = rc.chamber_id where c.chamber_number = 101 and r.paid = 'false'
+select r.rental_id,r.check_in_date,r.note,g.guest_name,g.birth,g.id_card,g.passport,g.address,g.nationality,g.phone_number,g.email,c.chamber_type,c.price_day,c.is_vip from rental r join guest g on g.guest_id = r.guest_id join rental_chamber rc on rc.rental_id =  r.rental_id join chamber c on c.chamber_id = rc.chamber_id where c.chamber_number = 101 and r.paid = 'false';
 
-;select sum(s.total_price) as total from rental r join service_bill s on r.rental_id = s.rental_id join rental_chamber rc on rc.rental_id =  r.rental_id join chamber c on c.chamber_id = rc.chamber_id where c.chamber_number = 101  and r.paid = 'false'
+ALTER TABLE employee CHANGE manager_number manager_number varchar(25);
 
- 
- 
+ALTER TABLE employee DROP employee_position;
+ALTER TABLE employee DROP manager_id;
+
+insert into hotel_management.section(section_name,section_manager_id)
+values  ('letan','1'),
+		('bao ve','2'),
+        ('ve sinh','3'),
+        ('nha bep','4');
+
+insert into hotel_management.employee(employee_number,employee_name,birth,gender,address,email,phone_number,salary,manager_number,section_id)
+values  ('7698','Hoang Viet','09/04/1997','Nam','Ha Noi','hung_haui_2310@gmail.com','086456789','25000','7839','1'),
+		('7782','Nguyen Nhung','06/04/1989','Nu','Nam Dinh','nguyennhung0604@gmail.com','0845677789','25000','7839','1'),
+		('7499','Xuan Thanh','04/09/1991','Nam','Yen Bai','xuanthanh0409@gmail.com','0869834289','200000','7698','1'),
+		('7844','Xuan Dieu','03/04/1992','Nu','Ha Noi','xuandieu0304@gmail.com','0869709655','200000','7698','1'),
+		('7900','Hoang Quoc Viet','08/07/1988','Nam','Ha Noi','hoangviet0807@gmail.com','0213567289','100000','7698','1'),
+		('7521','Pham Hung','09/01/1989','Nam','Nam Dinh','phamhung0901@gmail.com','0869756734','150000','7698','1'),
+		('7902','Xuan Thuy','24/02/1989','Nam','Hai Duong','xuanthuy2402@gmail.com','0878435289','250000','7566','1'),
+		('7369','Ho Tung Mau','27/03/1987','Nu','Hai Duong','tungmau2703@gmail.com','0869799944','100000','8000','1'),
+		('7788','Hoang Mai','17/03/1970','Nu','Quang Ninh','hoangmai1703@gmail.com','0869712345','250000','7566','1'),
+		('7876','Nhu Thuy','17/03/1977','Nu','Thai Nguyen','nhuthuy1703@gmail.com','0890674289','100000','7788','1'),
+		('7934','Thuy Trang','15/04/1974','Nu','Quang Ninh','thuytrang1504@gmail.com','0357889289','100000','7782','1'),
+		('7839','Quang Dai','13/03/1984','Nam','Hai Duong','quangdai1303@gmail.com','0352182289','300000','7839','1'),
+        ('7902','Xuan Thuy','24/02/1989','Nam','Hai Duong','xuanthuy2402@gmail.com','0878435289','250000','7566','2'),
+		('7369','Ho Tung Mau','27/03/1987','Nu','Hai Duong','tungmau2703@gmail.com','0869799944','100000','8000','2'),
+		('7788','Hoang Mai','17/03/1970','Nu','Quang Ninh','hoangmai1703@gmail.com','0869712345','250000','7566','2'),
+        ('7654','Quang Bao','05/12/1990','Nam','Hai Duong','quangbao0512@gmail.com','0868996589','150000','7698','2'),
+        ('7566','Hoang Minh','07/03/1990','Nam','Hai Duong','hoangminh0703@gmail.com','0869742289','250000','7839','2'),
+        ('7902','Xuan Thuy','24/02/1989','Nam','Hai Duong','xuanthuy2402@gmail.com','0878435289','250000','7566','3'),
+		('7369','Ho Tung Mau','27/03/1987','Nu','Hai Duong','tungmau2703@gmail.com','0869799944','100000','8000','3'),
+		('7788','Hoang Mai','17/03/1970','Nu','Quang Ninh','hoangmai1703@gmail.com','0869712345','250000','7566','3'),
+        ('7654','Quang Bao','05/12/1990','Nam','Hai Duong','quangbao0512@gmail.com','0868996589','150000','7698','3'),
+        ('7566','Hoang Minh','07/03/1990','Nam','Hai Duong','hoangminh0703@gmail.com','0869742289','250000','7839','3'),
+        ('7902','Xuan Thuy','24/02/1989','Nam','Hai Duong','xuanthuy2402@gmail.com','0878435289','250000','7566','4'),
+        ('7654','Quang Bao','05/12/1990','Nam','Hai Duong','quangbao0512@gmail.com','0868996589','150000','7698','4'),
+		('7369','Ho Tung Mau','27/03/1987','Nu','Hai Duong','tungmau2703@gmail.com','0869799944','100000','8000','4'),
+        ('7566','Hoang Minh','07/03/1990','Nam','Hai Duong','hoangminh0703@gmail.com','0869742289','250000','7839','4'),
+		('7788','Hoang Mai','17/03/1970','Nu','Quang Ninh','hoangmai1703@gmail.com','0869712345','250000','7566','4');
+insert into hotel_management.employee_schedule(start_date,work_name,content,note,employee_id)
+values  ('20/10/2017','trực ban','Ngồi tại quầy chờ khách tới. Tiến hành nhập thông tin của khách hàng khi check-in và check-out','(Không có ghi chú gì)','28'),
+		('08/03/2016','bảo vệ','Trông xe, không thu vé, luôn trực sẵn khi có điện thoại cần trợ giúp','(Không có ghi chú gì)','41'),
+        ('04/02/2015','dọn vệ sinh','Dọn dẹp hành lang, phòng và nhà vệ sinh khi khách check-out','(Không có ghi chú gì)','46'),
+        ('02/04/2016','nấu ăn','Nấu theo thực đơn khách hàng đã đặt','(Không có ghi chú gì)','53');
+
+ALTER TABLE hotel_management.employee_schedule CHANGE content content VARCHAR(200);
+
+
+
+
 
 
 
