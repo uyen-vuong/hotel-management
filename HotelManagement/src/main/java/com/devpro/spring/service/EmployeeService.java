@@ -15,7 +15,5 @@ public interface EmployeeService {
 	
 	List<Employee> searchEmployees(String text);
 	
-	void addEmployeeInfo(Employee employee);
-	
-	void editEmployeeInfo(Employee employee);
+	void editEmployeeInfo(String employeeNumber, String employeeName, String birth, String gender, String address, String email, String phoneNumber, String salary, String managerNumber, Long employeeId);
 }

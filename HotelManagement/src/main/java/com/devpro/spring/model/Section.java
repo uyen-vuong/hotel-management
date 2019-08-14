@@ -1,5 +1,6 @@
 package com.devpro.spring.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,10 +15,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "section")
-public class Section {
+public class Section implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	
 	@Column(name = "section_id")
 	private Long sectionId;

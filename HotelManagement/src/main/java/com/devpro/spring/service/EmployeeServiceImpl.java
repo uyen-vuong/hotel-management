@@ -23,15 +23,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public void addEmployeeInfo(Employee employee) {
+	public void editEmployeeInfo(String employeeNumber, String employeeName, String birth, String gender, String address, String email, String phoneNumber, String salary, String managerNumber, Long employeeId) {
 		// TODO Auto-generated method stub
-		employeeRepository.save(employee);
-	}
-
-	@Override
-	public void editEmployeeInfo(Employee employee) {
-		// TODO Auto-generated method stub
-		employeeRepository.save(employee);
+		employeeRepository.updateEmployee(employeeNumber, employeeName, birth, gender, address, email, phoneNumber, salary, managerNumber, employeeId);
 	}
 
 	@Override

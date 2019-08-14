@@ -54,14 +54,14 @@
 				<nav class="main_nav">
 					<ul
 						class="d-flex flex-row align-items-center justify-content-start">
-						<li th:class="${check==0}? 'active': ''"><a th:href="@{/}">Trang chủ</a></li>
-						<li th:class="${check==1}? 'active': ''"><a th:href="@{/check-in}">Đặt phòng</a></li>
+						<li th:class="${check==2}? 'active': ''"><a th:href="@{/}">Trang chủ</a></li>
+						<li th:class="${check==2}? 'active': ''"><a th:href="@{/check-in}">Đặt phòng</a></li>
 						<li th:class="${check==2}? 'active': ''"><a th:href="@{/check-out}">Trả phòng</a></li>
-						<li th:class="${check==3}? 'active': ''"><a th:href="@{/order}">Dịch vụ</a></li>
-						<li th:class="${check==4}? 'active': ''"><a th:href="@{/guests}">Khách hàng</a></li>
-						<li th:class="${check==5}? 'active': ''"><a th:href="@{/chamber}">Quản lý phòng</a></li>
-						<li th:class="${check==6}? 'active': ''"><a th:href="@{/service}">Quản lý dịch vụ</a></li>
-						<li th:class="${check==7}? 'active': ''"><a th:href="@{/employee}">Nhân viên</a></li>
+						<li th:class="${check==2}? 'active': ''"><a th:href="@{/order}">Dịch vụ</a></li>
+						<li th:class="${check==2}? 'active': ''"><a th:href="@{/guests}">Khách hàng</a></li>
+						<li th:class="${check==2}? 'active': ''"><a th:href="@{/chamber}">Quản lý phòng</a></li>
+						<li th:class="${check==2}? 'active': ''"><a th:href="@{/service}">Quản lý dịch vụ</a></li>
+						<li th:class="${check==2}? 'active': ''"><a th:href="@{/employee}">Nhân viên</a></li>
 						<li><a th:href="@{/logout}">Đăng xuất</a></li>
 					</ul>
 				</nav>
@@ -72,29 +72,7 @@
 
 		<!-- Logo Overlay -->
 
-		<div th:fragment="header_content">
-<!-- 			<div class="logo_overlay"> -->
-<!-- 				<div -->
-<!-- 					class="logo_overlay_content d-flex flex-column align-items-center justify-content-center"> -->
-<!-- 					<div class="logo"> -->
-<!-- 						<a href="#"><img src="homepage/images/logo_3.png" alt=""></a> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-
-			<!-- Menu Overlay -->
-
-<!-- 			<div class="menu_overlay"> -->
-<!-- 				<div -->
-<!-- 					class="menu_overlay_content d-flex flex-row align-items-center justify-content-center"> -->
-
-<!-- 					Hamburger Button -->
-<!-- 					<div class="hamburger"> -->
-<!-- 						<i class="fa fa-bars" aria-hidden="true"></i> -->
-<!-- 					</div> -->
-
-<!-- 				</div> -->
-<!-- 			</div> -->
+		<div th:fragment="header_content">			
 
 			<!-- Menu -->
 

@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{starter::head('Quản lý nhân viên')}">
-<meta charset = "utf-8">
+<meta charset="utf-8">
 </head>
 <body>
 	<div class="super_container">
 		<div th:replace="~{starter::header(5)}"></div>
 		<div th:replace="~{starter::header_content}"></div>
 		<div class="container" style="margin-top: 350px; margin-bottom: 50px">
+			<div class="form-group">
+				<label for="section" class="title-input">Chọn bộ phận</label> <select
+					class="custom-select" name="section" id="section">
+					<th:block th:each="item:${listSection}">
+						<option th:attr="value=${item.sectionId}"
+							th:utext="${item.sectionName}">
+						</option>
+					</th:block>
+				</select>
+			</div>
 			<div class="row">
 				<div class="col-md-6" style="float: left;">
 					<button type="button" class="btn btn-success aBtn">
@@ -47,23 +57,27 @@
 								<td style="display: none;"></td>
 								<td th:utext="${employee.employeeNumber}"
 									style="text-align: center"></td>
-								<td th:utext="${employee.employeeName}" style="text-align: center"></td>
+								<td th:utext="${employee.employeeName}"
+									style="text-align: center"></td>
 								<td th:utext="${employee.birth}" style="text-align: center"></td>
 								<td th:utext="${employee.gender}" style="text-align: center"></td>
 								<td th:utext="${employee.address}" style="text-align: center"></td>
 								<td th:utext="${employee.email}" style="text-align: center"></td>
-								<td th:utext="${employee.phoneNumber}" style="text-align: center"></td>
+								<td th:utext="${employee.phoneNumber}"
+									style="text-align: center"></td>
 								<td th:utext="${employee.salary}" style="text-align: center"></td>
-								<td th:utext="${employee.managerNumber}" style="text-align: center"></td>
+								<td th:utext="${employee.managerNumber}"
+									style="text-align: center"></td>
 								<td style="text-align: center"><a
-										class="btn btn-primary text-white eBtn"
-										th:href="@{/find-employee/(id=${employee.employeeId})}"><i
-											class="fas fa-user-edit"></i></a></td>
+									class="btn btn-primary text-white eBtn"
+									th:href="@{/find-employee/(id=${employee.employeeId})}"><i
+										class="fas fa-user-edit"></i></a></td>
 							</tr>
 						</th:block>
 					</tbody>
 				</table>
-				<div class="col-md-6" style="float: left; margin-top: 26px; font-size: 17px">
+				<div class="col-md-6"
+					style="float: left; margin-top: 26px; font-size: 17px">
 					<p>
 						Tổng số nhân viên : <span th:utext="${totalElement}"
 							style="color: red; font-weight: bold;"></span>
@@ -73,7 +87,7 @@
 					<ul class="pagination" style="float: right;">
 						<li
 							th:class="${currentIndex == 1}? 'page-item disabled' : 'page-item'">
-							<a class="page-link" th:href="@{/chamber}">First</a>
+							<a class="page-link" th:href="@{/employee}">First</a>
 						</li>
 						<li
 							th:class="${currentIndex == 1}? 'page-item disabled': 'page-item' ">
@@ -110,9 +124,8 @@
 				</nav>
 			</div>
 
-		<div class="modal fade" id="updateData" tabindex="-1"
-				role="dialog" aria-labelledby="exampleModalCenterTitle"
-				aria-hidden="true">
+			<div class="modal fade" id="updateData" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document"
 					style="margin-top: 50px">
 					<div class="modal-content">
@@ -127,7 +140,7 @@
 								</button>
 							</div>
 							<div class="modal-body row" style="margin-left: 0;">
-							<div class="form-group col-md-6">
+								<div class="form-group col-md-6">
 									<label for="number" class="title-input">Mã nhân viên</label> <input
 										type="text" class="form-control" placeholder="Mã nhân viên..."
 										required id="number" name="number">
@@ -139,8 +152,8 @@
 								</div>
 								<div class="form-group col-md-6">
 									<label for="birth" class="title-input">Ngày sinh</label> <input
-										type="date" class="form-control"
-										placeholder="Ngày sinh..." id="birth" name="birth">
+										type="date" class="form-control" placeholder="Ngày sinh..."
+										id="birth" name="birth">
 								</div>
 								<div class="form-group col-md-6">
 									<label for="gender" class="title-input">Giới tính</label> <input
@@ -149,22 +162,22 @@
 								</div>
 								<div class="form-group col-md-6">
 									<label for="address" class="title-input">Địa chỉ</label> <input
-										type="text" class="form-control" placeholder="Ngày sinh..."
+										type="text" class="form-control" placeholder="Địa chỉ..."
 										id="address" name="address">
 								</div>
 								<div class="form-group col-md-6">
 									<label for="email" class="title-input">Email</label> <input
-										type="email" class="form-control"
-										placeholder="Email..."/ id = "email" name = "email">
+										type="email" class="form-control" placeholder="Email..."
+										id="email" name="email">
 								</div>
 								<div class="form-group col-md-6">
 									<label for="phone" class="title-input">Số điện thoại</label> <input
-										type="text" class="form-control" placeholder="Số điện thoại..." id="phone"
-									name="phone">
+										type="number" class="form-control"
+										placeholder="Số điện thoại..." id="phone" name="phone">
 								</div>
 								<div class="form-group col-md-6">
 									<label for="salary" class="title-input">Lương</label> <input
-										type="text" class="form-control" placeholder="Lương..."
+										type="number" class="form-control" placeholder="Lương..."
 										id="salary" name="salary">
 								</div>
 								<div class="form-group col-md-6">
@@ -185,47 +198,33 @@
 					</div>
 				</div>
 			</div>
-		
-	</div>
+
+		</div>
 	</div>
 	<div th:replace="~{starter::footer}"></div>
 	<div th:replace="~{starter::script}"></div>
 	<script type="text/javascript">
 		$(document).ready(function() {
 
-			$('.eBtn,.aBtn').click(function(e) {
+			$('.eBtn').click(function(e) {
 				e.preventDefault();
 				var href = $(this).attr('href');
-				var text = $(this).text();
-				if (text == '') {
-					$.get(href, function(employee, status) {
-						$('#number').val(employee.employeeNumber);
-						$('#name').val(employee.employeeName);
-						$('#birth').val(employee.birth);
-						$('#gender').val(employee.gender);
-						$('#address').val(chamber.address);
-						$('#email').val(chamber.email);
-						$('#phone').val(chamber.phoneNumber);
-						$('#salary').val(chamber.salary);
-						$('#manager').val(chamber.manager);
-						$('#id').val(employee.employeeId);
-					});
-					$('#updateData').modal();
-				} else {
-					$('#number').val('');
-					$('#name').val('');
-					$('#birth').val('');
-					$('#gender').val('');
-					$('#address').val('');
-					$('#email').val('');
-					$('#phone').val('');
-					$('#salary').val('');
-					$('#manager').val('');
-					$('#id').val('-1');
-					$('#updateData').modal();
-				}
+
+				$.get(href, function(employee, status) {
+					$('id').val(employee.employeeId).hide();
+					$('#number').val(employee.employeeNumber);
+					$('#name').val(employee.employeeName);
+					$('#birth').val(employee.birth);
+					$('#gender').val(employee.gender);
+					$('#address').val(employee.address);
+					$('#email').val(employee.email);
+					$('#phone').val(employee.phoneNumber);
+					$('#salary').val(employee.salary);
+					$('#manager').val(employee.managerNumber);
+				});
+				$('#updateData').modal();
 			});
-<!--
+			<!--
 			$('.dBtn').click(function(e) {
 				e.preventDefault();
 				var href = $(this).attr('href');
@@ -234,7 +233,7 @@
 				});
 				$('#deleteModal').modal();
 			});
--->
+			-->
 			$('input').click(function() {
 				this.select();
 			});

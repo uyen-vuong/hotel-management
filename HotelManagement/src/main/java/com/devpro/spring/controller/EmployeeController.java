@@ -1,7 +1,5 @@
 package com.devpro.spring.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devpro.spring.model.Employee;
 import com.devpro.spring.service.EmployeeService;
+import com.devpro.spring.service.SectionService;
 
 
 @Controller
@@ -23,29 +22,48 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
+	@Autowired
+	private SectionService sectionService;
+	
 	@GetMapping("/employee")
 	public String loadListEmployees(Model model,
 			@RequestParam(name = "page", defaultValue = "0") Integer page,
 			@RequestParam(name = "search-text", defaultValue = "") String text){
 		Pageable pageable = PageRequest.of(page, 10);
 		Page<Employee> pages = employeeService.searchEmployees(pageable, text);
-		List<Employee> list = employeeService.searchEmployees(text);
 		int current = pages.getNumber() + 1;
 		long total = pages.getTotalPages();
-		int begin = Math.max(1, (current - list.size()));
+		long begin = 1;
 		long end = 1;
-		if(total != 0) {
-			end = Math.min(begin + 5, total);
+		if(current>5 && total>6) {
+			begin = Math.max(1, current);
+		}
+		if(total!=0) {
+			end = Math.min(begin + 4, total);
+		}
+		if(current==total-5) {
+			end = total;
+		}
+		boolean extra = false;
+		boolean checkLast = false;
+		if(total >5 && current<total-5) {
+			extra = true;
+		}
+		if(total >6 && current<total-5) {
+			checkLast = true;
 		}
 		String baseUrl = "/employee?page=";
 		String searchUrl = "&search-text="+text;
 		
+		model.addAttribute("listSection",sectionService.getSectionOption());
 		model.addAttribute("beginIndex", begin);
 		model.addAttribute("endIndex", end);
 		model.addAttribute("currentIndex", current);
 		model.addAttribute("totalPageCount", total);
 		model.addAttribute("baseUrl", baseUrl);
 		model.addAttribute("employees", pages);
+		model.addAttribute("extra", extra);
+		model.addAttribute("checkLast", checkLast);
 		model.addAttribute("searchUrl", searchUrl);
 		model.addAttribute("searchText", text);
 		return "employee";
@@ -62,12 +80,12 @@ public class EmployeeController {
 			@RequestParam(name = "email") String email,
 			@RequestParam(name = "phone") String phoneNumber,
 			@RequestParam(name = "salary") String salary,
-			@RequestParam(name = "managerNumber") String managerNumber,
+			@RequestParam(name = "manager") String managerNumber,
 			@RequestParam(name = "page") int page,
 			@RequestParam(name = "text") String text) {
-		Employee employee = new Employee(employeeId, employeeNumber, employeeName, birth, gender, address, email, phoneNumber, salary, managerNumber, null);
-		employeeService.editEmployeeInfo(employee);
-		return "redirect:/employees?page="+page+"&search-text="+text;
+		
+		employeeService.editEmployeeInfo(employeeNumber, employeeName, birth, gender, address, email, phoneNumber, salary, managerNumber, employeeId);
+		return "redirect:/employee?page="+page+"&search-text="+text;
 	}
 	
 	@GetMapping("/find-employee")

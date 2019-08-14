@@ -8,6 +8,8 @@ public interface CustomQuery {
 
 		String EMPLOYEE_SEARCH = "select g from Employee g where g.employeeName like :text or g.employeeNumber like :text or g.birth like :text or g.address like :text or g.email like :text or g.phoneNumber like :text or g.salary like :text";
 
+		String EMPLOYEE_UPDATE = "update Employee set employeeNumber=:employeeNumber,employeeName=:employeeName,birth=:birth,gender=:gender,address=:address,email=:email,phoneNumber=:phoneNumber,salary=:salary,managerNumber=:managerNumber where employeeId=:employeeId";
+		
 		String CHAMBER_SEARCH_PRICE_1 = "select c from Chamber c where cast(c.priceDay as int) < 1000000 and c.chamberType = :chamberType and c.isVip = :isVip and c.isEmpty = 'true'";
 		
 		String CHAMBER_SEARCH_PRICE_2 = "select c from Chamber c where cast(c.priceDay as int) between 1000000 and 3000000 and c.chamberType = :chamberType and c.isVip = :isVip and c.isEmpty = 'true'";
