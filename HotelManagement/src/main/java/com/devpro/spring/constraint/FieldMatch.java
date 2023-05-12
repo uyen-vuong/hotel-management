@@ -1,5 +1,6 @@
 package com.devpro.spring.constraint;
 
+// ràng buộc
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;

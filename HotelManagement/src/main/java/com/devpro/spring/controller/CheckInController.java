@@ -1,5 +1,6 @@
 package com.devpro.spring.controller;
 
+// xử lý việc tìm kiếm các phòng phù hợp theo yêu cầu ở trang đặt phòng
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,11 +20,12 @@ public class CheckInController {
 	private ChamberService chamberService;
 
 	@GetMapping("/check-in")
+	// lấy các giá trị từ file check-in.html
 	public String checkIn(Model model, @RequestParam(name = "page", defaultValue = "0") Integer page,
 			@RequestParam(name = "p", defaultValue = "2") Integer price,
 			@RequestParam(name = "t", defaultValue = "single") String type,
 			@RequestParam(name = "v", defaultValue = "true") String vip) {
-
+// cài đặt 1 trang hiển thị 12 phòng
 		Pageable pageable = PageRequest.of(page, 12);
 		Page<Chamber> pages;
 		boolean checkPrice1 = false;
@@ -34,23 +36,24 @@ public class CheckInController {
 		boolean checkType3 = false;
 		boolean checkVip1 = false;
 		boolean checkVip2 = false;
-
+		// trả về các phòng có giá nhỏ hơn 1 triệu
 		switch (price) {
 		case 1:
 			pages = chamberService.searchChamberWithPrice1(pageable, type, vip);
 			checkPrice1 = true;
 			break;
+			// tìm kiếm các phòng có giá lớn hơn 1 tr và nhỏ hơn 3 tr
 		case 2:
 			pages = chamberService.searchChamberWithPrice2(pageable, type, vip);
 			checkPrice2 = true;
 			break;
-		default:
+		default: // mặc định là tìm kiếm phòng có giá lớn hơn 3 tr
 			pages = chamberService.searchChamberWithPrice3(pageable, type, vip);
 			checkPrice3 = true;
 			break;
 		}
 
-		switch (vip) {
+		switch (vip) { 
 		case "true":
 			checkVip1 = true;
 			break;
@@ -71,6 +74,7 @@ public class CheckInController {
 			break;
 		}
 
+		// cách hiển thị trang
 		int current = pages.getNumber() + 1;
 		long total = pages.getTotalPages();
 		long totalElement = pages.getTotalElements();
@@ -95,7 +99,7 @@ public class CheckInController {
 		}
 		String baseUrl = "/check-in?page=";
 		String filterUrl = "&p="+price+"&t="+type+"&v="+vip;
-
+		//
 
 		model.addAttribute("checkPrice1", checkPrice1);
 		model.addAttribute("checkPrice2", checkPrice2);

@@ -16,16 +16,17 @@ import com.devpro.spring.utils.WebUtils;
 public class MainController {
 	
 	@RequestMapping(value = {"/", "home"}, method = RequestMethod.GET)
-	public String homePage(Model model) {
+	public String homePage() {
 		return "home";
 	}
 	
 	@GetMapping("/login")
-	public String login(Model model) {
+	public String login() {
 		return "login";
 	}
-
+	// kiểm tra phân quyền của user 
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	// principal: nằm trong sercurity của spring
 	public String accessDenied(Model model, Principal principal) {
 		if(principal != null) {
 			User loginUser = (User) ((Authentication)principal).getPrincipal();

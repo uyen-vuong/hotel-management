@@ -1,8 +1,6 @@
-
+// var: khai báo tên biến( variable)
 (function ($) {
     "use strict";
-
-
     /*==================================================================
     [ Focus input ]*/
     $('.input100').each(function(){

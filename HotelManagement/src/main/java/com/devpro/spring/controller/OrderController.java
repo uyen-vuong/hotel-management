@@ -19,6 +19,7 @@ import com.devpro.spring.service.GuestService;
 import com.devpro.spring.service.HotelServiceService;
 import com.devpro.spring.service.RentalService;
 
+// xử lý các dịch vụ: thuê phòng, dịch vụ dành cho khách hàng, dv ăn uống, dv khách sạn
 @Controller
 public class OrderController {
 
@@ -33,7 +34,8 @@ public class OrderController {
 	
 	@Autowired
 	private HotelServiceService hotelServiceService;
-
+	
+	// đưa ra các thông tin về các dịch vụ: thuê phòng, ăn uống, dv khách sạn
 	@GetMapping("/order")
 	public String showOrder(Model model) {
 		model.addAttribute("list_chambers", rentalService.getListChamberOrderFood());

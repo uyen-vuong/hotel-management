@@ -137,7 +137,7 @@ public class ServiceController {
 		hotelServiceService.saveService(service);
 		return "redirect:/service";
 	}
-	
+	// xóa dịch vụ
 	@PostMapping("/service/delete-service")
 	public String deleteService(@RequestParam(name = "idService")Long id) {
 		hotelServiceService.deleteService(id);

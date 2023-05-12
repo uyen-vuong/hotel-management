@@ -15,7 +15,6 @@ import javax.persistence.Table;
 public class Payment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "payment_id")
 	private Long paymentId;
 

@@ -24,8 +24,9 @@ public class GuestController {
 	public String loadListGuests(Model model, 
 			@RequestParam(name = "page", defaultValue = "0") Integer page,
 			@RequestParam(name = "search-text",defaultValue = "") String text) {
-
-		Pageable pageable = PageRequest.of(page, 10); // mac dinh 10 ban ghi 1 trang
+		
+		// cài đặt mặc định 1 trang là 10 bản ghi
+		Pageable pageable = PageRequest.of(page, 10);
 		Page<Guest> pages = guestService.searchGuests(pageable, text);
 		
 		int current = pages.getNumber() + 1;
@@ -64,7 +65,7 @@ public class GuestController {
 		model.addAttribute("searchText", text);
 		return "guest";
 	}
-
+	// cật nhật thông tin khách hàng
 	@PostMapping("/update-guest-info")
 	public String updateGuestInfo(@RequestParam(name = "id") Long guestId,
 			@RequestParam(name = "name") String guestName, @RequestParam(name = "card") String idCard,
@@ -73,11 +74,11 @@ public class GuestController {
 			@RequestParam(name = "phone") String phoneNumber,@RequestParam(name = "email") String email,
 			@RequestParam(name = "page") int page,
 			@RequestParam(name = "text") String text) {
-
+		// requestParam lấy thông tin của khách hàng từ trang guest.html
 		guestService.updateNomal(guestName, birth, idCard, passport, address, nationality, phoneNumber, email, guestId);
 		return "redirect:/guests?page="+page+"&search-text="+text;
 	}
-
+	// tìm khách hàng theo id
 	@GetMapping("/find-guest")
 	@ResponseBody
 	public Guest findOneGuest(Long id) {

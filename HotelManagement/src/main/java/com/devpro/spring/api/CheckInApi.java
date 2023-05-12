@@ -24,48 +24,53 @@ import com.devpro.spring.service.ChamberService;
 import com.devpro.spring.service.GuestService;
 import com.devpro.spring.service.RentalService;
 
-@RestController
+@RestController // để đánh dấu lớp điều khiển cho Rest API
 public class CheckInApi {
 
 	@Autowired
-	private GuestService guestService;
+	private GuestService guestService; // dịch vụ cho khách hàng
 
 	@Autowired
-	private ChamberService chamberService;
+	private ChamberService chamberService; // dịch vụ tại phòng
 
 	@Autowired
-	private RentalService rentalService;
+	private RentalService rentalService;// dịch vụ trong toàn bộ khách sạn
 
 	@Transactional(rollbackFor = Exception.class)
 	// rollback khi gap bat ki ngoai le nao CHUA DC xu ly
+	
 	@PostMapping("/rent-chamber")
 	public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody CheckInInfoDto checkin, Errors errors) {
 
 		AjaxResponseBody result = new AjaxResponseBody();
+		
+		// xử lý lỗi 
 		if (errors.hasErrors()) {
 			result.setMessage(
 					errors.getAllErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(",")));
 			return ResponseEntity.badRequest().body(result);
+			// nếu có lỗi thì trả về badrequest(dừng lại)
 		}
+		// nếu không có lỗi => check in thành công thì đổi trạng thái phòng thành có người
+		chamberService.updateCheckIn(checkin.getChamberId()); 
 
-		chamberService.updateCheckIn(checkin.getChamberId()); // doi trang thai phong thanh co nguoi o
-
-		Chamber chamber = chamberService.findChamber(checkin.getChamberId()); // tim phong da thay doi t.thai o tren
-
+		Chamber chamber = chamberService.findChamber(checkin.getChamberId()); 
+	
+		// tìm phòng đã thay đổi trạng thái ở trên theo idcard
 		int check = guestService.checkExistGuest(checkin.getIdCard());
-		
+		// nếu check = 1 tức là đã tồn tại 1 tài khoản có idcard rồi
 		if (check == 1) {
-			
 			guestService.updateComplete(checkin.getPassport(), checkin.getAddress(), checkin.getPhone(),
 					checkin.getEmail(), chamber.getIsVip(), checkin.getIdCard());
 			// bo sung thong tin con thieu cho khach hang
 			
 		} else if (check == 0) {
+			// check = 0 tức là chưa có bản ghi nào thì mk cần thêm mới vào
 			guestService.addGuestInfo(new Guest(checkin.getName(), checkin.getBirth(), checkin.getIdCard(),
 					checkin.getPassport(), checkin.getAddress(), checkin.getNationality(), checkin.getPhone(),
 					checkin.getEmail(), "false", chamber.getIsVip())); // them moi khach
 		} else {
-			// truong hop csdl da co den 2 khach tro len (duplicate - sai csdl)
+			// trường hợp có nhiều khách có cùng id card => sai csdl => báo lỗi về 
 			result.setMessage("Lỗi hệ thống vui lòng thử lại sau!");
 			return ResponseEntity.badRequest().body(result);
 		}

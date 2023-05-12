@@ -33,11 +33,12 @@ public class OrderApi {
 
 	@Autowired
 	private RentalService rentalService;
-
-	@Transactional(rollbackFor = Exception.class) // update data
-	@PostMapping("/order/order-food")
+	
+	// quay lại bước ngay trước nó khi có bất kì lỗi xảy ra
+	@Transactional(rollbackFor = Exception.class) 
+	
+	@PostMapping("/order/order-food") //=> order đồ ăn
 	public ResponseEntity<?> addOrderFood(@Valid @RequestBody OrderFoodDto order, Errors error) {
-
 		AjaxResponseBody result = new AjaxResponseBody();
 		if (error.hasErrors()) {
 			result.setMessage(
@@ -57,6 +58,7 @@ public class OrderApi {
 
 	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/order/order-service")
+	// lưu service bill
 	public ResponseEntity<?> addOrderService(@Valid @RequestBody OrderServiceDto order, Errors error) {
 
 		AjaxResponseBody result = new AjaxResponseBody();

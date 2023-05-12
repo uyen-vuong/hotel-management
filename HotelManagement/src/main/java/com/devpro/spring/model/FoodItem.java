@@ -13,7 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
+@Data
 @Entity
 @Table(name = "food_item")
 @JsonIgnoreProperties("category")
@@ -28,38 +31,6 @@ public class FoodItem implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "food_item_id")
 	private Long id;
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
-	}
 
 	public FoodItem(Long id, String name, String description, String price, String image, Category category) {
 		this.id = id;
@@ -75,26 +46,6 @@ public class FoodItem implements Serializable{
 		this.description = description;
 		this.price = price;
 		this.image = image;
-		this.category = category;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public FoodItem() {
-		super();
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
 		this.category = category;
 	}
 

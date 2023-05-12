@@ -24,7 +24,7 @@ public class EmployeeController {
 	
 	@Autowired
 	private SectionService sectionService;
-	
+	// hiển thị ra danh sách nhân viên
 	@GetMapping("/employee")
 	public String loadListEmployees(Model model,
 			@RequestParam(name = "page", defaultValue = "0") Integer page,
@@ -71,7 +71,7 @@ public class EmployeeController {
 		model.addAttribute("searchText", text);
 		return "employee";
 	}
-	
+	// cật nhật nhân viên
 	@PostMapping("/update-employee-info")
 	public String updateEmployeeInfo(
 			@RequestParam(name = "id") Long employeeId,
@@ -93,7 +93,7 @@ public class EmployeeController {
 			}
 		return "redirect:/employee?page="+page+"&search-text="+text;
 	}
-	
+	// tìm nhân viên theo id
 	@GetMapping("/find-employee")
 	@ResponseBody
 	public Employee findOneEmployee(Long id) {

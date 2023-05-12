@@ -14,12 +14,12 @@ import org.springframework.data.repository.query.Param;
 import com.devpro.spring.model.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long>{
-
+	// tìm kiếm thông tin nhân viên
 	@Query(CustomQuery.EMPLOYEE_SEARCH)
 	Page<Employee> searchEmployees(Pageable pageable, @Param("text") String text);
-
 	@Transactional
 	@Modifying
+	// update thông tin nhân viên
 	@Query(CustomQuery.EMPLOYEE_UPDATE)
 	void updateEmployee(@Param("employeeNumber") String employeeNumber,
 			@Param("employeeName") String employeeName,

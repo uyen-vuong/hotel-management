@@ -1,5 +1,6 @@
 package com.devpro.spring.controller;
 
+//xử lý các request của trang trả phòng
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +14,12 @@ import com.devpro.spring.model.Guest;
 import com.devpro.spring.model.Rental;
 import com.devpro.spring.service.RentalService;
 
+
 @Controller
 public class CheckOutController {
 	
 	@Autowired
-	private RentalService rentalService;
+	private RentalService rentalService; // rental service: đặt phòng
 	
 	@GetMapping("/check-out")
 	public String showCheckOut(Model model) {
